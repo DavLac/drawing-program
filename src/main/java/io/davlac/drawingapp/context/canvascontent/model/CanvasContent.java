@@ -24,4 +24,8 @@ public class CanvasContent {
     public void setContent(String[][] content) {
         this.content = content;
     }
+
+    public boolean isEmpty() {
+        return this.content == null || this.content.length == 0;
+    }
 }

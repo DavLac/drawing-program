@@ -7,6 +7,8 @@ import io.davlac.drawingapp.context.canvas.service.CanvasService;
 
 import java.util.List;
 
+import static io.davlac.drawingapp.context.inputcommand.model.ActionCommand.CREATE_CANVAS;
+import static io.davlac.drawingapp.utils.ValidatorUtils.checkArgumentLength;
 import static io.davlac.drawingapp.utils.ValidatorUtils.checkIfStringsAreTheSameTypeThanObjectFields;
 
 public class CreateCanvasGenericArgumentsService implements CanvasGenericArgumentsService {
@@ -15,12 +17,13 @@ public class CreateCanvasGenericArgumentsService implements CanvasGenericArgumen
 
     @Override
     public Canvas create(List<String> arguments) {
-        CreateCanvasRequest createCanvasRequest = toCreateCanvasRequest(arguments);
-        return createCanvasService.create(createCanvasRequest);
+        checkArgumentLength(arguments, 2, CREATE_CANVAS);
+        checkIfStringsAreTheSameTypeThanObjectFields(CreateCanvasRequest.class, arguments);
+
+        return createCanvasService.create(toCreateCanvasRequest(arguments));
     }
 
     private static CreateCanvasRequest toCreateCanvasRequest(List<String> arguments) {
-        checkIfStringsAreTheSameTypeThanObjectFields(CreateCanvasRequest.class, arguments);
         return new CreateCanvasRequest(Integer.parseInt(arguments.get(0)), Integer.parseInt(arguments.get(1)));
     }
 }

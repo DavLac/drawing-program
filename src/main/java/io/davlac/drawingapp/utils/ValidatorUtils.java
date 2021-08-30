@@ -1,5 +1,7 @@
 package io.davlac.drawingapp.utils;
 
+import io.davlac.drawingapp.context.inputcommand.model.ActionCommand;
+
 import javax.validation.ConstraintViolation;
 import javax.validation.Validation;
 import javax.validation.Validator;
@@ -24,10 +26,6 @@ public class ValidatorUtils {
     public static void checkIfStringsAreTheSameTypeThanObjectFields(Class clazz, List<String> strings) {
         Field[] allFields = clazz.getDeclaredFields();
 
-        if (strings.size() < allFields.length) {
-            throw new IllegalArgumentException("ERROR: not enough arguments to create a Canvas.");
-        }
-
         IntStream.range(0, allFields.length)
                 .forEach(index -> {
                             if (allFields[index].getType().isInstance(Integer.class)) {
@@ -35,6 +33,12 @@ public class ValidatorUtils {
                             }
                         }
                 );
+    }
+
+    public static void checkArgumentLength(List<String> arguments, Integer argsMinSize, ActionCommand actionCommand) {
+        if (arguments.size() < argsMinSize) {
+            throw new IllegalArgumentException(String.format("ERROR: Action '%s' - not enough arguments", actionCommand));
+        }
     }
 
     public static void validate(Object object) {
