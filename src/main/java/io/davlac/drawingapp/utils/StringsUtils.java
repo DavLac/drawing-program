@@ -1,4 +1,4 @@
-package io.davlac.drawingapp.context.utils;
+package io.davlac.drawingapp.utils;
 
 import org.apache.commons.lang3.StringUtils;
 
