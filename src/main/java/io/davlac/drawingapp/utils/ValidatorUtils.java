@@ -41,7 +41,7 @@ public class ValidatorUtils {
         }
     }
 
-    public static void validate(Object object) {
+    public static void validateObjectConstraints(Object object) {
         Validator validator = factory.getValidator();
         Set<ConstraintViolation<Object>> constraintViolations = validator.validate(object);
 

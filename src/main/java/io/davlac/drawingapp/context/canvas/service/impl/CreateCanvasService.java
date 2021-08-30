@@ -4,13 +4,33 @@ import io.davlac.drawingapp.context.canvas.model.Canvas;
 import io.davlac.drawingapp.context.canvas.model.CreateCanvasRequest;
 import io.davlac.drawingapp.context.canvas.service.CanvasService;
 
-import static io.davlac.drawingapp.utils.ValidatorUtils.validate;
+import java.util.List;
+
+import static io.davlac.drawingapp.context.inputcommand.model.ActionCommand.CREATE_CANVAS;
+import static io.davlac.drawingapp.utils.ValidatorUtils.checkArgumentLength;
+import static io.davlac.drawingapp.utils.ValidatorUtils.checkIfStringsAreTheSameTypeThanObjectFields;
+import static io.davlac.drawingapp.utils.ValidatorUtils.validateObjectConstraints;
 
 public class CreateCanvasService implements CanvasService {
 
     @Override
-    public Canvas create(CreateCanvasRequest createCanvasRequest) {
-        validate(createCanvasRequest);
+    public void validateArguments(List<String> arguments) {
+        checkArgumentLength(arguments, 2, CREATE_CANVAS);
+        checkIfStringsAreTheSameTypeThanObjectFields(CreateCanvasRequest.class, arguments);
+    }
+
+    @Override
+    public CreateCanvasRequest toCreateCanvasRequest(List<String> arguments) {
+        return new CreateCanvasRequest(Integer.parseInt(arguments.get(0)), Integer.parseInt(arguments.get(1)));
+    }
+
+    @Override
+    public void validateCreateCanvasRequest(CreateCanvasRequest createCanvasRequest) {
+        validateObjectConstraints(createCanvasRequest);
+    }
+
+    @Override
+    public Canvas createCanvas(CreateCanvasRequest createCanvasRequest) {
         return Canvas.create(createCanvasRequest.getWidth(), createCanvasRequest.getHeight());
     }
 }

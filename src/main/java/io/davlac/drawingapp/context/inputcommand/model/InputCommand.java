@@ -6,6 +6,8 @@ import java.util.stream.Collectors;
 public final class InputCommand {
 
     private final ActionCommand actionCommand;
+
+    // List instead of an Array to make children's field immutable
     private final List<String> arguments;
 
     public InputCommand(InputCommand.Builder builder) {

@@ -1,8 +1,16 @@
 package io.davlac.drawingapp.context.canvascontent.service;
 
 import io.davlac.drawingapp.context.canvascontent.model.CanvasContent;
-import io.davlac.drawingapp.context.canvascontent.model.DrawLineRequest;
+import io.davlac.drawingapp.context.canvascontent.model.DrawShapeRequest;
+
+import java.util.List;
 
 public interface CanvasContentService {
-    CanvasContent drawLine(DrawLineRequest drawLineRequest);
+    void validateArguments(List<String> arguments);
+
+    DrawShapeRequest toDrawShapeRequest(List<String> arguments, CanvasContent canvasContent);
+
+    void validateDrawShapeRequest(DrawShapeRequest drawShapeRequest);
+
+    CanvasContent drawShape(DrawShapeRequest drawShapeRequest);
 }
