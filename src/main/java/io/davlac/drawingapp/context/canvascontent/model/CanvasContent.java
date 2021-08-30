@@ -2,26 +2,29 @@ package io.davlac.drawingapp.context.canvascontent.model;
 
 import java.util.stream.IntStream;
 
+import static io.davlac.drawingapp.context.canvascontent.model.CharCanvas.EMPTY_CHAR;
+
 public class CanvasContent {
-    private String[][] content;
+
+    private char[][] content;
 
     public static CanvasContent initWithEmptySpaces(Integer width, Integer height) {
-        String[][] content = new String[height][width];
+        char[][] content = new char[height][width];
         IntStream.range(0, height)
                 .forEach(indexY -> IntStream.range(0, width)
-                        .forEach(indexX -> content[indexY][indexX] = " "));
+                        .forEach(indexX -> content[indexY][indexX] = EMPTY_CHAR.getChar()));
         return new CanvasContent(content);
     }
 
-    public CanvasContent(String[][] content) {
+    public CanvasContent(char[][] content) {
         this.content = content;
     }
 
-    public String[][] getContent() {
+    public char[][] getContent() {
         return content;
     }
 
-    public void setContent(String[][] content) {
+    public void setContent(char[][] content) {
         this.content = content;
     }
 
