@@ -1,17 +1,15 @@
 package io.davlac.drawingapp.context.canvascontent.service.impl;
 
-import io.davlac.drawingapp.context.canvascontent.model.AbstractCanvasContentService;
 import io.davlac.drawingapp.context.canvascontent.model.CanvasContent;
 import io.davlac.drawingapp.context.canvascontent.model.Coordinates;
-import io.davlac.drawingapp.context.canvascontent.model.DrawLineRequest;
-import io.davlac.drawingapp.context.canvascontent.model.DrawShapeRequest;
+import io.davlac.drawingapp.context.canvascontent.model.request.DrawLineRequest;
+import io.davlac.drawingapp.context.canvascontent.model.request.DrawShapeRequest;
 import io.davlac.drawingapp.context.canvascontent.service.CanvasContentService;
 
 import java.util.List;
 
 import static io.davlac.drawingapp.context.inputcommand.model.ActionCommand.DRAW_LINE;
 import static io.davlac.drawingapp.utils.ValidatorUtils.checkArgumentLength;
-import static io.davlac.drawingapp.utils.ValidatorUtils.checkIfStringsAreTheSameTypeThanObjectFields;
 import static io.davlac.drawingapp.utils.ValidatorUtils.validateObjectConstraints;
 import static java.lang.Integer.parseInt;
 
@@ -20,17 +18,15 @@ public class DrawLineCanvasContentService extends AbstractCanvasContentService i
     @Override
     public void validateArguments(List<String> arguments) {
         checkArgumentLength(arguments, 4, DRAW_LINE);
-        checkIfStringsAreTheSameTypeThanObjectFields(Coordinates.class, List.of(arguments.get(0), arguments.get(1)));
-        checkIfStringsAreTheSameTypeThanObjectFields(Coordinates.class, List.of(arguments.get(2), arguments.get(3)));
     }
 
     @Override
     public DrawShapeRequest toDrawShapeRequest(List<String> arguments, CanvasContent canvasContent) {
-        return DrawLineRequest.builder()
-                .firstPoint(parseInt(arguments.get(0)), parseInt(arguments.get(1)))
-                .lastPoint(parseInt(arguments.get(2)), parseInt(arguments.get(3)))
-                .canvasContent(canvasContent)
-                .create();
+        return new DrawLineRequest(
+                new Coordinates(parseInt(arguments.get(0)), parseInt(arguments.get(1))),
+                new Coordinates(parseInt(arguments.get(2)), parseInt(arguments.get(3))),
+                canvasContent
+        );
     }
 
     @Override

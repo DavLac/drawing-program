@@ -1,11 +1,12 @@
-package io.davlac.drawingapp.context.canvascontent.model;
+package io.davlac.drawingapp.context.canvascontent.service.impl;
 
+import io.davlac.drawingapp.context.canvascontent.model.CanvasContent;
+import io.davlac.drawingapp.context.canvascontent.model.Coordinates;
 import io.davlac.drawingapp.context.inputcommand.model.ActionCommand;
 
 import java.util.stream.IntStream;
 
 import static io.davlac.drawingapp.context.canvascontent.model.CharCanvas.LINE_CHAR;
-import static io.davlac.drawingapp.context.inputcommand.model.ActionCommand.DRAW_LINE;
 
 public abstract class AbstractCanvasContentService {
 

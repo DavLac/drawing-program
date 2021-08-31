@@ -1,4 +1,4 @@
-package io.davlac.drawingapp.utils;
+package io.davlac.drawingapp.context.consoleshceduler.utils;
 
 public class ConsoleLogUtils {
 

@@ -3,8 +3,6 @@ package io.davlac.drawingapp;
 import io.davlac.drawingapp.context.consoleshceduler.service.ConsoleSchedulerService;
 import io.davlac.drawingapp.utils.ValidatorUtils;
 
-import static io.davlac.drawingapp.utils.ConsoleLogUtils.printBreakLine;
-
 public class DrawingApplication {
 
     /**
@@ -16,7 +14,6 @@ public class DrawingApplication {
 
         ConsoleSchedulerService.run();
 
-        printBreakLine();
         System.out.println("### End of Drawing app ###");
     }
 

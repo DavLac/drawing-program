@@ -8,7 +8,7 @@ import org.apache.commons.lang3.StringUtils;
 import java.util.List;
 import java.util.Scanner;
 
-import static io.davlac.drawingapp.utils.StringsUtils.splitWithoutEmptyElements;
+import static io.davlac.drawingapp.context.inputcommand.utils.StringsUtils.splitWithoutEmptyElements;
 
 public class InputCommandService {
 

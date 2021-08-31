@@ -6,7 +6,7 @@ import io.davlac.drawingapp.context.canvas.service.CanvasService;
 import io.davlac.drawingapp.context.canvas.service.impl.CreateCanvasService;
 import io.davlac.drawingapp.context.canvascontent.factory.CanvasContentRawArgumentsFactory;
 import io.davlac.drawingapp.context.canvascontent.model.CanvasContent;
-import io.davlac.drawingapp.context.canvascontent.model.DrawShapeRequest;
+import io.davlac.drawingapp.context.canvascontent.model.request.DrawShapeRequest;
 import io.davlac.drawingapp.context.canvascontent.service.CanvasContentService;
 import io.davlac.drawingapp.context.inputcommand.model.InputCommand;
 

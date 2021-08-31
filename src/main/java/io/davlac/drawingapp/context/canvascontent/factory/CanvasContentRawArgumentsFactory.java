@@ -1,6 +1,7 @@
 package io.davlac.drawingapp.context.canvascontent.factory;
 
 import io.davlac.drawingapp.context.canvascontent.service.CanvasContentService;
+import io.davlac.drawingapp.context.canvascontent.service.impl.DrawBucketFillCanvasContentService;
 import io.davlac.drawingapp.context.canvascontent.service.impl.DrawLineCanvasContentService;
 import io.davlac.drawingapp.context.canvascontent.service.impl.DrawRectangleCanvasContentService;
 import io.davlac.drawingapp.context.inputcommand.model.ActionCommand;
@@ -16,6 +17,8 @@ public class CanvasContentRawArgumentsFactory {
                 return new DrawLineCanvasContentService();
             case DRAW_RECTANGLE:
                 return new DrawRectangleCanvasContentService();
+            case DRAW_BUCKET_FILL:
+                return new DrawBucketFillCanvasContentService();
             default:
                 throw new IllegalArgumentException(String.format("ERROR : Action command '%s' is not implemented", actionCommand));
         }

@@ -8,7 +8,6 @@ import java.util.List;
 
 import static io.davlac.drawingapp.context.inputcommand.model.ActionCommand.CREATE_CANVAS;
 import static io.davlac.drawingapp.utils.ValidatorUtils.checkArgumentLength;
-import static io.davlac.drawingapp.utils.ValidatorUtils.checkIfStringsAreTheSameTypeThanObjectFields;
 import static io.davlac.drawingapp.utils.ValidatorUtils.validateObjectConstraints;
 
 public class CreateCanvasService implements CanvasService {
@@ -16,7 +15,6 @@ public class CreateCanvasService implements CanvasService {
     @Override
     public void validateArguments(List<String> arguments) {
         checkArgumentLength(arguments, 2, CREATE_CANVAS);
-        checkIfStringsAreTheSameTypeThanObjectFields(CreateCanvasRequest.class, arguments);
     }
 
     @Override

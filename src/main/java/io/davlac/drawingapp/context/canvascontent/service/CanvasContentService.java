@@ -1,7 +1,7 @@
 package io.davlac.drawingapp.context.canvascontent.service;
 
 import io.davlac.drawingapp.context.canvascontent.model.CanvasContent;
-import io.davlac.drawingapp.context.canvascontent.model.DrawShapeRequest;
+import io.davlac.drawingapp.context.canvascontent.model.request.DrawShapeRequest;
 
 import java.util.List;
 
