@@ -6,10 +6,9 @@ import io.davlac.drawingapp.context.inputcommand.service.InputCommandService;
 import org.apache.commons.lang3.ArrayUtils;
 import org.apache.commons.lang3.StringUtils;
 
+import java.util.Arrays;
 import java.util.List;
 import java.util.Scanner;
-
-import static io.davlac.drawingapp.context.inputcommand.utils.StringsUtils.splitWithoutEmptyElements;
 
 public class InputCommandServiceImpl implements InputCommandService {
 
@@ -46,5 +45,12 @@ public class InputCommandServiceImpl implements InputCommandService {
         if (rawCommandAction.length() > 1) {
             throw new IllegalArgumentException(String.format("ERROR : Action should be 1 character '%s'.", rawCommandAction));
         }
+    }
+
+    public static String[] splitWithoutEmptyElements(String str, String separator) {
+        String[] strSplit = str.split(separator, -1);
+        return Arrays.stream(strSplit)
+                .filter(element -> !StringUtils.isEmpty(element))
+                .toArray(String[]::new);
     }
 }

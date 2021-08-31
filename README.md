@@ -26,3 +26,7 @@ Command line :
 ```
 java -jar drawingprogram-1.0.0.jar
 ```
+
+## Jacoco test coverage
+- Unit tests : in progress
+- Integration tests : 97%

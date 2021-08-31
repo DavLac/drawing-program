@@ -4,8 +4,8 @@ import io.davlac.drawingapp.context.canvas.model.Canvas;
 import io.davlac.drawingapp.context.inputcommand.model.ActionCommand;
 import io.davlac.drawingapp.context.inputcommand.model.InputCommand;
 import io.davlac.drawingapp.context.inputcommand.service.CommandTypeService;
-import io.davlac.drawingapp.context.inputcommand.service.impl.CommandTypeServiceImpl;
 import io.davlac.drawingapp.context.inputcommand.service.InputCommandService;
+import io.davlac.drawingapp.context.inputcommand.service.impl.CommandTypeServiceImpl;
 import io.davlac.drawingapp.context.inputcommand.service.impl.InputCommandServiceImpl;
 import io.davlac.drawingapp.context.output.model.RawOutput;
 import io.davlac.drawingapp.context.output.service.OutputService;
@@ -23,7 +23,6 @@ public class ConsoleSchedulerService {
 
     public void run() {
         Scanner userInput = new Scanner(System.in);
-
         ActionCommand currentActionCommand = null;
         Canvas canvas = Canvas.empty();
         do {
@@ -40,9 +39,9 @@ public class ConsoleSchedulerService {
 
                 currentActionCommand = inputCommand.getAction();
             } catch (NumberFormatException ex) {
-                System.err.printf("ERROR: bad argument type %s", ex.getMessage());
+                System.out.printf("ERROR: bad argument type %s", ex.getMessage());
             } catch (IllegalArgumentException ex) {
-                System.err.println(ex.getMessage());
+                System.out.println(ex.getMessage());
             }
         } while (currentActionCommand != ActionCommand.QUIT);
 
