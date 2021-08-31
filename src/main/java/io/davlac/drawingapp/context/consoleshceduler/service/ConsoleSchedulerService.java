@@ -5,10 +5,10 @@ import io.davlac.drawingapp.context.inputcommand.model.ActionCommand;
 import io.davlac.drawingapp.context.inputcommand.model.InputCommand;
 import io.davlac.drawingapp.context.inputcommand.service.CommandTypeService;
 import io.davlac.drawingapp.context.inputcommand.service.InputCommandService;
+import io.davlac.drawingapp.context.output.service.OutputService;
 
 import java.util.Scanner;
 
-import static io.davlac.drawingapp.context.output.service.OutputService.printCanvas;
 import static io.davlac.drawingapp.context.consoleshceduler.utils.ConsoleLogUtils.printBreakLine;
 
 public class ConsoleSchedulerService {
@@ -28,7 +28,7 @@ public class ConsoleSchedulerService {
 
                 if (inputCommand.getAction() != ActionCommand.QUIT) {
                     canvas = CommandTypeService.processInputCommand(inputCommand, canvas);
-                    printCanvas(canvas);
+                    OutputService.printCanvas(canvas);
                 }
 
                 currentActionCommand = inputCommand.getAction();

@@ -1,9 +1,9 @@
 package io.davlac.drawingapp.context.canvascontent.factory;
 
 import io.davlac.drawingapp.context.canvascontent.service.CanvasContentService;
-import io.davlac.drawingapp.context.canvascontent.service.impl.DrawBucketFillCanvasContentService;
-import io.davlac.drawingapp.context.canvascontent.service.impl.DrawLineCanvasContentService;
-import io.davlac.drawingapp.context.canvascontent.service.impl.DrawRectangleCanvasContentService;
+import io.davlac.drawingapp.context.canvascontent.service.impl.canvascontent.DrawBucketFillCanvasContentService;
+import io.davlac.drawingapp.context.canvascontent.service.impl.canvascontent.DrawLineCanvasContentService;
+import io.davlac.drawingapp.context.canvascontent.service.impl.canvascontent.DrawRectangleCanvasContentService;
 import io.davlac.drawingapp.context.inputcommand.model.ActionCommand;
 
 public class CanvasContentRawArgumentsFactory {

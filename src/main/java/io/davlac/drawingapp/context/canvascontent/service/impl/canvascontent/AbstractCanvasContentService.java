@@ -1,4 +1,4 @@
-package io.davlac.drawingapp.context.canvascontent.service.impl;
+package io.davlac.drawingapp.context.canvascontent.service.impl.canvascontent;
 
 import io.davlac.drawingapp.context.canvascontent.model.CanvasContent;
 import io.davlac.drawingapp.context.canvascontent.model.Coordinates;
@@ -13,6 +13,7 @@ public abstract class AbstractCanvasContentService {
     protected static char[][] drawHorizontalLine(Coordinates firstPoint, Coordinates lastPoint, char[][] canvasContent) {
         int higherPoint;
         int smallerPoint;
+        char[][] canvasContentModified = canvasContent.clone();
 
         if (firstPoint.getX() >= lastPoint.getX()) {
             higherPoint = firstPoint.getX();
@@ -23,14 +24,15 @@ public abstract class AbstractCanvasContentService {
         }
 
         IntStream.range(smallerPoint - 1, higherPoint)
-                .forEach(index -> canvasContent[firstPoint.getY() - 1][index] = LINE_CHAR.getChar());
+                .forEach(index -> canvasContentModified[firstPoint.getY() - 1][index] = LINE_CHAR.getChar());
 
-        return canvasContent.clone();
+        return canvasContentModified;
     }
 
     protected static char[][] drawVerticalLine(Coordinates firstPoint, Coordinates lastPoint, char[][] canvasContent) {
         int higherPoint;
         int smallerPoint;
+        char[][] canvasContentModified = canvasContent.clone();
 
         if (firstPoint.getY() >= lastPoint.getY()) {
             higherPoint = firstPoint.getY();
@@ -41,9 +43,9 @@ public abstract class AbstractCanvasContentService {
         }
 
         IntStream.range(smallerPoint - 1, higherPoint)
-                .forEach(index -> canvasContent[index][firstPoint.getX() - 1] = LINE_CHAR.getChar());
+                .forEach(index -> canvasContentModified[index][firstPoint.getX() - 1] = LINE_CHAR.getChar());
 
-        return canvasContent.clone();
+        return canvasContentModified;
     }
 
     protected static void checkIfCoordinatesAreInsideCanvas(Coordinates coordinates,

@@ -1,10 +1,13 @@
 package io.davlac.drawingapp.context.canvas.model;
 
+import javax.validation.constraints.Max;
 import javax.validation.constraints.Positive;
 
 public final class CreateCanvasRequest {
+    @Max(5000)
     @Positive
     private final Integer width;
+    @Max(5000)
     @Positive
     private final Integer height;
 

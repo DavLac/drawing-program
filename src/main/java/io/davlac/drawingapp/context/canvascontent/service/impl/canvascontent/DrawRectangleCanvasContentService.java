@@ -1,4 +1,4 @@
-package io.davlac.drawingapp.context.canvascontent.service.impl;
+package io.davlac.drawingapp.context.canvascontent.service.impl.canvascontent;
 
 import io.davlac.drawingapp.context.canvascontent.model.CanvasContent;
 import io.davlac.drawingapp.context.canvascontent.model.Coordinates;
