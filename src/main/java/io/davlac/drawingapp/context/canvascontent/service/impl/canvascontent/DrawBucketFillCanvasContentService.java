@@ -10,18 +10,18 @@ import io.davlac.drawingapp.context.canvascontent.service.impl.floodfill.Breadth
 
 import java.util.List;
 
+import static io.davlac.drawingapp.context.canvascontent.utils.ValidatorUtils.checkArgumentLength;
+import static io.davlac.drawingapp.context.canvascontent.utils.ValidatorUtils.validateObjectConstraints;
 import static io.davlac.drawingapp.context.inputcommand.model.ActionCommand.DRAW_BUCKET_FILL;
-import static io.davlac.drawingapp.utils.ValidatorUtils.checkArgumentLength;
-import static io.davlac.drawingapp.utils.ValidatorUtils.validateObjectConstraints;
 import static java.lang.Integer.parseInt;
 
 public class DrawBucketFillCanvasContentService extends AbstractCanvasContentService implements CanvasContentService {
 
-    private static final FloodFillService floodFillService = new BreadthFirstSearchFloodFillService();
+    private final FloodFillService floodFillService = new BreadthFirstSearchFloodFillService();
 
     @Override
     public void validateArguments(List<String> arguments) {
-        checkArgumentLength(arguments, 3, DRAW_BUCKET_FILL);
+        checkArgumentLength(arguments, DRAW_BUCKET_FILL);
     }
 
     @Override

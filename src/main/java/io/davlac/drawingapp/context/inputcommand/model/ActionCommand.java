@@ -7,21 +7,23 @@ import static io.davlac.drawingapp.context.inputcommand.model.CommandType.CANVAS
 import static io.davlac.drawingapp.context.inputcommand.model.CommandType.CANVAS_CONTENT;
 
 public enum ActionCommand {
-    CREATE_CANVAS("C", CANVAS_BODY),
-    DRAW_LINE("L", CANVAS_CONTENT),
-    DRAW_RECTANGLE("R", CANVAS_CONTENT),
-    DRAW_BUCKET_FILL("B", CANVAS_CONTENT),
-    QUIT("Q", APPLICATION_OPERATION);
+    CREATE_CANVAS('C', CANVAS_BODY, 2),
+    DRAW_LINE('L', CANVAS_CONTENT, 4),
+    DRAW_RECTANGLE('R', CANVAS_CONTENT, 4),
+    DRAW_BUCKET_FILL('B', CANVAS_CONTENT, 3),
+    QUIT('Q', APPLICATION_OPERATION, 0);
 
-    private final String command;
+    private final Character command;
     private final CommandType commandType;
+    private final int minArgumentSize;
 
-    ActionCommand(String command, CommandType commandType) {
+    ActionCommand(char command, CommandType commandType, int minArgumentSize) {
         this.command = command;
         this.commandType = commandType;
+        this.minArgumentSize = minArgumentSize;
     }
 
-    public String getCommand() {
+    public char getCommand() {
         return command;
     }
 
@@ -29,7 +31,11 @@ public enum ActionCommand {
         return commandType;
     }
 
-    public static ActionCommand getActionByCommand(String command) {
+    public int getMinArgumentSize() {
+        return minArgumentSize;
+    }
+
+    public static ActionCommand getActionByCommand(char command) {
         return Arrays.stream(ActionCommand.values())
                 .filter(actionCommand -> actionCommand.command.equals(command))
                 .findFirst()

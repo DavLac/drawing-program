@@ -1,7 +1,7 @@
 package io.davlac.drawingapp;
 
+import io.davlac.drawingapp.context.canvascontent.utils.ValidatorUtils;
 import io.davlac.drawingapp.context.consoleshceduler.service.ConsoleSchedulerService;
-import io.davlac.drawingapp.utils.ValidatorUtils;
 
 public class DrawingApplication {
 
@@ -12,7 +12,8 @@ public class DrawingApplication {
         eagerClassLoading();
         System.out.println("### Welcome on Drawing app ###");
 
-        ConsoleSchedulerService.run();
+        ConsoleSchedulerService consoleSchedulerService = new ConsoleSchedulerService();
+        consoleSchedulerService.run();
 
         System.out.println("### End of Drawing app ###");
     }

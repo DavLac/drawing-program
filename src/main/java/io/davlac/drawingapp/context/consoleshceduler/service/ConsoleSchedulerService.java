@@ -4,8 +4,12 @@ import io.davlac.drawingapp.context.canvas.model.Canvas;
 import io.davlac.drawingapp.context.inputcommand.model.ActionCommand;
 import io.davlac.drawingapp.context.inputcommand.model.InputCommand;
 import io.davlac.drawingapp.context.inputcommand.service.CommandTypeService;
+import io.davlac.drawingapp.context.inputcommand.service.impl.CommandTypeServiceImpl;
 import io.davlac.drawingapp.context.inputcommand.service.InputCommandService;
+import io.davlac.drawingapp.context.inputcommand.service.impl.InputCommandServiceImpl;
+import io.davlac.drawingapp.context.output.model.RawOutput;
 import io.davlac.drawingapp.context.output.service.OutputService;
+import io.davlac.drawingapp.context.output.service.impl.OutputServiceImpl;
 
 import java.util.Scanner;
 
@@ -13,22 +17,25 @@ import static io.davlac.drawingapp.context.consoleshceduler.utils.ConsoleLogUtil
 
 public class ConsoleSchedulerService {
 
-    private ConsoleSchedulerService() {
-    }
+    private final OutputService outputService = new OutputServiceImpl();
+    private final CommandTypeService commandTypeService = new CommandTypeServiceImpl();
+    private final InputCommandService inputCommandService = new InputCommandServiceImpl();
 
-    public static void run() {
-        Scanner scanner = new Scanner(System.in);
+    public void run() {
+        Scanner userInput = new Scanner(System.in);
 
         ActionCommand currentActionCommand = null;
         Canvas canvas = Canvas.empty();
         do {
             try {
                 printAskInputCommand();
-                InputCommand inputCommand = InputCommandService.toInputCommand(scanner);
+                String[] rawInputCommand = inputCommandService.toRawInputCommand(userInput);
+                InputCommand inputCommand = inputCommandService.toInputCommand(rawInputCommand);
 
                 if (inputCommand.getAction() != ActionCommand.QUIT) {
-                    canvas = CommandTypeService.processInputCommand(inputCommand, canvas);
-                    OutputService.printCanvas(canvas);
+                    canvas = commandTypeService.processInputCommand(inputCommand, canvas);
+                    RawOutput rawOutput = outputService.toRawOutput(canvas);
+                    rawOutput.print();
                 }
 
                 currentActionCommand = inputCommand.getAction();

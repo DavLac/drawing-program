@@ -10,6 +10,9 @@ import static io.davlac.drawingapp.context.canvascontent.model.CharCanvas.LINE_C
 
 public abstract class AbstractCanvasContentService {
 
+    protected AbstractCanvasContentService() {
+    }
+
     protected static char[][] drawHorizontalLine(Coordinates firstPoint, Coordinates lastPoint, char[][] canvasContent) {
         int higherPoint;
         int smallerPoint;

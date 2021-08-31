@@ -6,9 +6,9 @@ import io.davlac.drawingapp.context.canvascontent.service.impl.canvascontent.Dra
 import io.davlac.drawingapp.context.canvascontent.service.impl.canvascontent.DrawRectangleCanvasContentService;
 import io.davlac.drawingapp.context.inputcommand.model.ActionCommand;
 
-public class CanvasContentRawArgumentsFactory {
+public class CanvasContentFactory {
 
-    private CanvasContentRawArgumentsFactory() {
+    private CanvasContentFactory() {
     }
 
     public static CanvasContentService getAction(ActionCommand actionCommand) {

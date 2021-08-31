@@ -1,4 +1,4 @@
-package io.davlac.drawingapp.utils;
+package io.davlac.drawingapp.context.canvascontent.utils;
 
 import io.davlac.drawingapp.context.inputcommand.model.ActionCommand;
 
@@ -18,13 +18,13 @@ public class ValidatorUtils {
     }
 
     public static void init() {
-        // Method empty to load this class at runtime (to show the Hibernate validator loading at the beginning)
+        // Method empty to load this class at runtime (to show the Hibernate validator loading message at the beginning)
     }
 
-    public static void checkArgumentLength(List<String> arguments, Integer argsMinSize, ActionCommand actionCommand) {
-        if (arguments.size() < argsMinSize) {
+    public static void checkArgumentLength(List<String> arguments, ActionCommand actionCommand) {
+        if (arguments.size() < actionCommand.getMinArgumentSize()) {
             throw new IllegalArgumentException(String.format("ERROR: Action '%s' - not enough arguments (%d)",
-                    actionCommand, argsMinSize));
+                    actionCommand, actionCommand.getMinArgumentSize()));
         }
     }
 
