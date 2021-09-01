@@ -1,8 +1,8 @@
 package io.davlac.drawingapp.context.inputcommand.service;
 
 import io.davlac.drawingapp.context.canvasbody.model.Canvas;
-import io.davlac.drawingapp.context.canvasbody.service.impl.ProcessCanvasServiceImpl;
-import io.davlac.drawingapp.context.canvascontent.service.impl.process.ProcessCanvasContentServiceImpl;
+import io.davlac.drawingapp.context.canvasbody.service.ProcessCanvasService;
+import io.davlac.drawingapp.context.canvascontent.service.ProcessCanvasContentService;
 import io.davlac.drawingapp.context.inputcommand.model.InputCommand;
 import io.davlac.drawingapp.context.inputcommand.service.impl.CommandTypeServiceImpl;
 import org.junit.jupiter.api.Test;
@@ -28,10 +28,10 @@ class CommandTypeServiceImplTest {
     private static final int HEIGHT = 6;
 
     @Mock
-    private ProcessCanvasServiceImpl processCanvasService;
+    private ProcessCanvasService processCanvasService;
 
     @Mock
-    private ProcessCanvasContentServiceImpl processCanvasContentService;
+    private ProcessCanvasContentService processCanvasContentService;
 
     @InjectMocks
     private CommandTypeServiceImpl commandTypeService;
