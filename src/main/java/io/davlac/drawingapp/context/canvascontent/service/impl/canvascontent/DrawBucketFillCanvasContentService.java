@@ -1,6 +1,5 @@
 package io.davlac.drawingapp.context.canvascontent.service.impl.canvascontent;
 
-import io.davlac.drawingapp.context.canvascontent.model.CanvasContent;
 import io.davlac.drawingapp.context.canvascontent.model.Coordinates;
 import io.davlac.drawingapp.context.canvascontent.model.request.DrawBucketFillRequest;
 import io.davlac.drawingapp.context.canvascontent.model.request.DrawShapeRequest;
@@ -28,7 +27,7 @@ public class DrawBucketFillCanvasContentService extends AbstractCanvasContentSer
     }
 
     @Override
-    public DrawShapeRequest toDrawShapeRequest(List<String> arguments, CanvasContent canvasContent) {
+    public DrawShapeRequest toDrawShapeRequest(List<String> arguments, final char[][] canvasContent) {
         char color = (BLANK_KEY_WORD_ARGUMENT.equals(arguments.get(2)))
                 ? BLANK_CHAR
                 : arguments.get(2).charAt(0);
@@ -48,10 +47,10 @@ public class DrawBucketFillCanvasContentService extends AbstractCanvasContentSer
     }
 
     @Override
-    public CanvasContent drawShape(DrawShapeRequest drawShapeRequest) {
+    public char[][] drawShape(DrawShapeRequest drawShapeRequest) {
         DrawBucketFillRequest drawBucketFillRequest = (DrawBucketFillRequest) drawShapeRequest;
-        char[][] canvasContent = drawBucketFillRequest.getCanvasContent().getContent();
+        char[][] canvasContent = drawBucketFillRequest.getCanvasContent();
         canvasContent = floodFillService.floodFill(canvasContent, drawBucketFillRequest.getFirstPoint(), drawBucketFillRequest.getColor());
-        return new CanvasContent(canvasContent);
+        return canvasContent;
     }
 }

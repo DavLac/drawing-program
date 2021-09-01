@@ -1,14 +1,16 @@
 package io.davlac.drawingapp.context.output.service.impl;
 
-import io.davlac.drawingapp.context.canvas.model.Canvas;
+import io.davlac.drawingapp.context.canvasbody.model.Canvas;
 import io.davlac.drawingapp.context.output.model.RawOutput;
 import io.davlac.drawingapp.context.output.service.OutputService;
+import org.springframework.stereotype.Component;
 
 import java.util.stream.IntStream;
 
 import static io.davlac.drawingapp.context.canvascontent.model.CharCanvas.LEFT_RIGHT_BORDER_CHAR;
 import static io.davlac.drawingapp.context.canvascontent.model.CharCanvas.TOP_BOTTOM_BORDER_CHAR;
 
+@Component
 public class OutputServiceImpl implements OutputService {
 
     public RawOutput toRawOutput(Canvas canvas) {
@@ -20,7 +22,7 @@ public class OutputServiceImpl implements OutputService {
             if (indexY == 0 || indexY == canvas.getHeight() + 1) {
                 generateBorderRow(canvas.getWidth() + 2, strBuilder);
             } else {
-                generateCanvasContentRow(canvas.getCanvasContent().getContent()[indexY - 1], strBuilder);
+                generateCanvasContentRow(canvas.getContent()[indexY - 1], strBuilder);
             }
             rawOutput[indexY] = strBuilder.toString();
         });

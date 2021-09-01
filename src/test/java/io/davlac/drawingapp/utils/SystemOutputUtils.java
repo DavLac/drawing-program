@@ -1,4 +1,4 @@
-package io.davlac.drawingapp.config;
+package io.davlac.drawingapp.utils;
 
 public class SystemOutputUtils {
 

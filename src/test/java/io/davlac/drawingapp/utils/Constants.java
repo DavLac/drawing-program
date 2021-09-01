@@ -1,4 +1,4 @@
-package io.davlac.drawingapp.integrationtest.config;
+package io.davlac.drawingapp.utils;
 
 import io.davlac.drawingapp.context.inputcommand.model.ActionCommand;
 

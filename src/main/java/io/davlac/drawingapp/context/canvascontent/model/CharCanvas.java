@@ -1,7 +1,7 @@
 package io.davlac.drawingapp.context.canvascontent.model;
 
 public enum CharCanvas {
-    EMPTY_CHAR(' '),
+    BLANK_CHAR(' '),
     TOP_BOTTOM_BORDER_CHAR('-'),
     LEFT_RIGHT_BORDER_CHAR('|'),
     LINE_CHAR('x');

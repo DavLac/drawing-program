@@ -1,18 +1,23 @@
 package io.davlac.drawingapp.context.inputcommand.service.impl;
 
-import io.davlac.drawingapp.context.canvas.model.Canvas;
-import io.davlac.drawingapp.context.canvas.service.ProcessCanvasService;
-import io.davlac.drawingapp.context.canvas.service.impl.ProcessCanvasServiceImpl;
-import io.davlac.drawingapp.context.canvascontent.model.CanvasContent;
+import io.davlac.drawingapp.context.canvasbody.model.Canvas;
+import io.davlac.drawingapp.context.canvasbody.service.ProcessCanvasService;
 import io.davlac.drawingapp.context.canvascontent.service.ProcessCanvasContentService;
-import io.davlac.drawingapp.context.canvascontent.service.impl.process.ProcessCanvasContentServiceImpl;
 import io.davlac.drawingapp.context.inputcommand.model.InputCommand;
 import io.davlac.drawingapp.context.inputcommand.service.CommandTypeService;
+import org.springframework.stereotype.Component;
 
+@Component
 public class CommandTypeServiceImpl implements CommandTypeService {
 
-    private final ProcessCanvasService processCanvasService = new ProcessCanvasServiceImpl();
-    private final ProcessCanvasContentService processCanvasContentService = new ProcessCanvasContentServiceImpl();
+    private final ProcessCanvasService processCanvasService;
+    private final ProcessCanvasContentService processCanvasContentService;
+
+    public CommandTypeServiceImpl(ProcessCanvasService processCanvasService,
+                                  ProcessCanvasContentService processCanvasContentService) {
+        this.processCanvasService = processCanvasService;
+        this.processCanvasContentService = processCanvasContentService;
+    }
 
     @Override
     public Canvas processInputCommand(InputCommand inputCommand, Canvas canvas) {
@@ -21,8 +26,8 @@ public class CommandTypeServiceImpl implements CommandTypeService {
                 processCanvasService.checkActionIsValid(inputCommand.getAction());
                 return processCanvasService.generateCanvas(inputCommand);
             case CANVAS_CONTENT:
-                CanvasContent canvasContent = processCanvasContentService.processDrawContent(inputCommand, canvas.getCanvasContent());
-                canvas.setCanvasContent(canvasContent);
+                char[][] canvasContent = processCanvasContentService.processDrawContent(inputCommand, canvas.getContent());
+                canvas.setContent(canvasContent);
                 return canvas;
             default:
                 throw new IllegalArgumentException(

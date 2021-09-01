@@ -1,6 +1,5 @@
 package io.davlac.drawingapp.context.canvascontent.service.impl.canvascontent;
 
-import io.davlac.drawingapp.context.canvascontent.model.CanvasContent;
 import io.davlac.drawingapp.context.canvascontent.model.Coordinates;
 import io.davlac.drawingapp.context.canvascontent.model.request.DrawShapeRequest;
 import io.davlac.drawingapp.context.canvascontent.model.request.DrawShapeTwoPointsRequest;
@@ -21,7 +20,7 @@ public class DrawRectangleCanvasContentService extends AbstractCanvasContentServ
     }
 
     @Override
-    public DrawShapeRequest toDrawShapeRequest(List<String> arguments, CanvasContent canvasContent) {
+    public DrawShapeRequest toDrawShapeRequest(List<String> arguments, final char[][] canvasContent) {
         return new DrawShapeTwoPointsRequest(
                 new Coordinates(parseInt(arguments.get(0)), parseInt(arguments.get(1))),
                 new Coordinates(parseInt(arguments.get(2)), parseInt(arguments.get(3))),
@@ -39,16 +38,16 @@ public class DrawRectangleCanvasContentService extends AbstractCanvasContentServ
     }
 
     @Override
-    public CanvasContent drawShape(DrawShapeRequest drawShapeRequest) {
+    public char[][] drawShape(DrawShapeRequest drawShapeRequest) {
         DrawShapeTwoPointsRequest drawRectangleRequest = (DrawShapeTwoPointsRequest) drawShapeRequest;
-        char[][] canvasContent = drawRectangleRequest.getCanvasContent().getContent();
+        char[][] canvasContent = drawRectangleRequest.getCanvasContent();
         Coordinates topLeftCorner = drawRectangleRequest.getFirstPoint();
         Coordinates bottomRightCorner = drawRectangleRequest.getLastPoint();
 
         return drawRectangle(topLeftCorner, bottomRightCorner, canvasContent);
     }
 
-    private static CanvasContent drawRectangle(Coordinates topLeftCorner, Coordinates bottomRightCorner, char[][] canvasContent) {
+    private static char[][] drawRectangle(Coordinates topLeftCorner, Coordinates bottomRightCorner, char[][] canvasContent) {
         Coordinates topRightCorner = new Coordinates(bottomRightCorner.getX(), topLeftCorner.getY());
         Coordinates bottomLeftCorner = new Coordinates(topLeftCorner.getX(), bottomRightCorner.getY());
 
@@ -57,7 +56,7 @@ public class DrawRectangleCanvasContentService extends AbstractCanvasContentServ
         canvasContent = drawVerticalLine(topLeftCorner, bottomLeftCorner, canvasContent);
         canvasContent = drawVerticalLine(topRightCorner, bottomRightCorner, canvasContent);
 
-        return new CanvasContent(canvasContent);
+        return canvasContent;
     }
 
     private static void checkTopLeftAndBottomRightCoordinates(Coordinates firstPoint, Coordinates lastPoint) {

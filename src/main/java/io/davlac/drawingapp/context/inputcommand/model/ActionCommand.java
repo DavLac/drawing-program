@@ -40,6 +40,6 @@ public enum ActionCommand {
                 .filter(actionCommand -> actionCommand.command.equals(command))
                 .findFirst()
                 .orElseThrow(() -> new IllegalArgumentException(
-                        String.format("ERROR : Action not found with command = '%s'.", command)));
+                        String.format("ERROR : Action not found with command = '%s'", command)));
     }
 }

@@ -1,4 +1,4 @@
-package io.davlac.drawingapp.context.canvas.model;
+package io.davlac.drawingapp.context.canvasbody.model;
 
 import javax.validation.constraints.Max;
 import javax.validation.constraints.Positive;

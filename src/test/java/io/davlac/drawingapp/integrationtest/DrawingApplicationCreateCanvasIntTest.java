@@ -16,8 +16,8 @@ import java.util.List;
 import java.util.stream.Stream;
 
 import static com.github.stefanbirkner.systemlambda.SystemLambda.tapSystemOut;
-import static io.davlac.drawingapp.config.SystemInputUtils.setUserInput;
-import static io.davlac.drawingapp.config.SystemOutputUtils.formatExpectedResult;
+import static io.davlac.drawingapp.utils.SystemInputUtils.setUserInput;
+import static io.davlac.drawingapp.utils.SystemOutputUtils.formatExpectedResult;
 import static io.davlac.drawingapp.integrationtest.config.CreateCanvasTestParameters.createCanvasErrorParametersConfig;
 import static io.davlac.drawingapp.integrationtest.config.CreateCanvasTestParameters.createCanvasParametersConfig;
 import static org.junit.jupiter.api.Assertions.assertEquals;

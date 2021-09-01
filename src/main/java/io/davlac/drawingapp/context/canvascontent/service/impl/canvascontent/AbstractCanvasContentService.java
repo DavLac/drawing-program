@@ -1,6 +1,5 @@
 package io.davlac.drawingapp.context.canvascontent.service.impl.canvascontent;
 
-import io.davlac.drawingapp.context.canvascontent.model.CanvasContent;
 import io.davlac.drawingapp.context.canvascontent.model.Coordinates;
 import io.davlac.drawingapp.context.inputcommand.model.ActionCommand;
 
@@ -52,10 +51,10 @@ public abstract class AbstractCanvasContentService {
     }
 
     protected static void checkIfCoordinatesAreInsideCanvas(Coordinates coordinates,
-                                                            CanvasContent canvasContent,
+                                                            char[][] canvasContent,
                                                             ActionCommand actionCommand) {
-        if (coordinates.getX() > canvasContent.getContent()[0].length ||
-                coordinates.getY() > canvasContent.getContent().length) {
+        if (coordinates.getX() > canvasContent[0].length ||
+                coordinates.getY() > canvasContent.length) {
             throw new IllegalArgumentException(
                     String.format("ERROR: Action '%s' - coordinates are outside the canvas : '%s'.", actionCommand, coordinates));
         }

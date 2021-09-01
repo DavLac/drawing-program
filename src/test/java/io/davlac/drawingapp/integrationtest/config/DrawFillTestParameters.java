@@ -5,18 +5,18 @@ import org.junit.jupiter.params.provider.Arguments;
 import java.util.List;
 import java.util.stream.Stream;
 
-import static io.davlac.drawingapp.config.SystemInputUtils.param;
-import static io.davlac.drawingapp.integrationtest.config.Constants.CREATE_ACTION;
-import static io.davlac.drawingapp.integrationtest.config.Constants.DRAW_RECTANGLE_ACTION;
-import static io.davlac.drawingapp.integrationtest.config.Constants.FILL_ACTION;
-import static io.davlac.drawingapp.integrationtest.config.Constants.QUIT_ACTION;
+import static io.davlac.drawingapp.utils.Constants.CREATE_ACTION;
+import static io.davlac.drawingapp.utils.Constants.DRAW_RECTANGLE_ACTION;
+import static io.davlac.drawingapp.utils.Constants.FILL_ACTION;
+import static io.davlac.drawingapp.utils.Constants.QUIT_ACTION;
+import static io.davlac.drawingapp.utils.SystemInputUtils.params;
 
 public class DrawFillTestParameters {
     public static Stream<Arguments> drawFillErrorParametersConfig() {
         return Stream.of(
                 Arguments.of("Fill without canvas",
                         List.of(
-                                param(FILL_ACTION, "1", "1", "1", "1"),
+                                params(FILL_ACTION, "1", "1", "1", "1"),
                                 QUIT_ACTION),
                         "### Welcome on Drawing app ###\n" +
                                 "\n" +
@@ -28,8 +28,8 @@ public class DrawFillTestParameters {
                                 "### End of Drawing app ###\n"),
                 Arguments.of("Fill not enough param",
                         List.of(
-                                param(CREATE_ACTION, "1", "1"),
-                                param(FILL_ACTION, "1"),
+                                params(CREATE_ACTION, "1", "1"),
+                                params(FILL_ACTION, "1"),
                                 QUIT_ACTION),
                         "### Welcome on Drawing app ###\n" +
                                 "\n" +
@@ -46,8 +46,8 @@ public class DrawFillTestParameters {
                                 "### End of Drawing app ###\n"),
                 Arguments.of("Fill with negative param",
                         List.of(
-                                param(CREATE_ACTION, "1", "1"),
-                                param(FILL_ACTION, "1", "-1", "o"),
+                                params(CREATE_ACTION, "1", "1"),
+                                params(FILL_ACTION, "1", "-1", "o"),
                                 QUIT_ACTION),
                         "### Welcome on Drawing app ###\n" +
                                 "\n" +
@@ -64,8 +64,8 @@ public class DrawFillTestParameters {
                                 "### End of Drawing app ###\n"),
                 Arguments.of("Fill all negative param",
                         List.of(
-                                param(CREATE_ACTION, "1", "1"),
-                                param(FILL_ACTION, "-1", "-1", "o"),
+                                params(CREATE_ACTION, "1", "1"),
+                                params(FILL_ACTION, "-1", "-1", "o"),
                                 QUIT_ACTION),
                         "### Welcome on Drawing app ###\n" +
                                 "\n" +
@@ -82,8 +82,8 @@ public class DrawFillTestParameters {
                                 "### End of Drawing app ###\n"),
                 Arguments.of("Fill with alpha param on coordinate",
                         List.of(
-                                param(CREATE_ACTION, "1", "1"),
-                                param(FILL_ACTION, "1", "one", "o"),
+                                params(CREATE_ACTION, "1", "1"),
+                                params(FILL_ACTION, "1", "one", "o"),
                                 QUIT_ACTION),
                         "### Welcome on Drawing app ###\n" +
                                 "\n" +
@@ -99,8 +99,8 @@ public class DrawFillTestParameters {
                                 "### End of Drawing app ###\n"),
                 Arguments.of("Fill with too long action",
                         List.of(
-                                param(CREATE_ACTION, "1", "1"),
-                                param(FILL_ACTION + "long", "1", "1", "1", "1"),
+                                params(CREATE_ACTION, "1", "1"),
+                                params(FILL_ACTION + "long", "1", "1", "1", "1"),
                                 QUIT_ACTION),
                         "### Welcome on Drawing app ###\n" +
                                 "\n" +
@@ -110,15 +110,15 @@ public class DrawFillTestParameters {
                                 "---\n" +
                                 "\n" +
                                 "enter command: \n" +
-                                "ERROR : Action should be 1 character 'Blong'.\n" +
+                                "ERROR : Action should be 1 character 'Blong'\n" +
                                 "\n" +
                                 "enter command: \n" +
                                 "\n" +
                                 "### End of Drawing app ###\n"),
                 Arguments.of("Fill with coordinate outside canvas",
                         List.of(
-                                param(CREATE_ACTION, "1", "1"),
-                                param(FILL_ACTION, "1", "2", "o"),
+                                params(CREATE_ACTION, "1", "1"),
+                                params(FILL_ACTION, "1", "2", "o"),
                                 QUIT_ACTION),
                         "### Welcome on Drawing app ###\n" +
                                 "\n" +
@@ -140,8 +140,8 @@ public class DrawFillTestParameters {
         return Stream.of(
                 Arguments.of("Fill action",
                         List.of(
-                                param(CREATE_ACTION, "2", "2"),
-                                param(FILL_ACTION, "1", "1", "£"),
+                                params(CREATE_ACTION, "2", "2"),
+                                params(FILL_ACTION, "1", "1", "£"),
                                 QUIT_ACTION),
                         "### Welcome on Drawing app ###\n" +
                                 "\n" +
@@ -162,9 +162,9 @@ public class DrawFillTestParameters {
                                 "### End of Drawing app ###\n"),
                 Arguments.of("Fill same color than requested",
                         List.of(
-                                param(CREATE_ACTION, "2", "2"),
-                                param(FILL_ACTION, "1", "1", "$"),
-                                param(FILL_ACTION, "2", "2", "$"),
+                                params(CREATE_ACTION, "2", "2"),
+                                params(FILL_ACTION, "1", "1", "$"),
+                                params(FILL_ACTION, "2", "2", "$"),
                                 QUIT_ACTION),
                         "### Welcome on Drawing app ###\n" +
                                 "\n" +
@@ -191,9 +191,9 @@ public class DrawFillTestParameters {
                                 "### End of Drawing app ###\n"),
                 Arguments.of("Fill with blank char",
                         List.of(
-                                param(CREATE_ACTION, "2", "2"),
-                                param(DRAW_RECTANGLE_ACTION, "1", "1", "2", "2"),
-                                param(FILL_ACTION, "1", "1", "blank"),
+                                params(CREATE_ACTION, "2", "2"),
+                                params(DRAW_RECTANGLE_ACTION, "1", "1", "2", "2"),
+                                params(FILL_ACTION, "1", "1", "blank"),
                                 QUIT_ACTION),
                         "### Welcome on Drawing app ###\n" +
                                 "\n" +
@@ -220,9 +220,9 @@ public class DrawFillTestParameters {
                                 "### End of Drawing app ###\n"),
                 Arguments.of("Fill a rectangle",
                         List.of(
-                                param(CREATE_ACTION, "5", "5"),
-                                param(DRAW_RECTANGLE_ACTION, "2", "2", "4", "4"),
-                                param(FILL_ACTION, "2", "2", "R"),
+                                params(CREATE_ACTION, "5", "5"),
+                                params(DRAW_RECTANGLE_ACTION, "2", "2", "4", "4"),
+                                params(FILL_ACTION, "2", "2", "R"),
                                 QUIT_ACTION),
                         "### Welcome on Drawing app ###\n" +
                                 "\n" +
@@ -258,8 +258,8 @@ public class DrawFillTestParameters {
                                 "### End of Drawing app ###\n"),
                 Arguments.of("Fill with color param too long - take first string char",
                         List.of(
-                                param(CREATE_ACTION, "1", "1"),
-                                param(FILL_ACTION, "1", "1", "long"),
+                                params(CREATE_ACTION, "1", "1"),
+                                params(FILL_ACTION, "1", "1", "long"),
                                 QUIT_ACTION),
                         "### Welcome on Drawing app ###\n" +
                                 "\n" +
@@ -278,8 +278,8 @@ public class DrawFillTestParameters {
                                 "### End of Drawing app ###\n"),
                 Arguments.of("Draw line with too much params, just take 3 first",
                         List.of(
-                                param(CREATE_ACTION, "1", "1"),
-                                param(FILL_ACTION, "1", "1", "a", "1", "1", "1", "1", "1"),
+                                params(CREATE_ACTION, "1", "1"),
+                                params(FILL_ACTION, "1", "1", "a", "1", "1", "1", "1", "1"),
                                 QUIT_ACTION),
                         "### Welcome on Drawing app ###\n" +
                                 "\n" +

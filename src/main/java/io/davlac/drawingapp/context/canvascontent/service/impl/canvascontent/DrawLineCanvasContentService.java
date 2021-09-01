@@ -1,6 +1,5 @@
 package io.davlac.drawingapp.context.canvascontent.service.impl.canvascontent;
 
-import io.davlac.drawingapp.context.canvascontent.model.CanvasContent;
 import io.davlac.drawingapp.context.canvascontent.model.Coordinates;
 import io.davlac.drawingapp.context.canvascontent.model.request.DrawShapeRequest;
 import io.davlac.drawingapp.context.canvascontent.model.request.DrawShapeTwoPointsRequest;
@@ -21,7 +20,7 @@ public class DrawLineCanvasContentService extends AbstractCanvasContentService i
     }
 
     @Override
-    public DrawShapeRequest toDrawShapeRequest(List<String> arguments, CanvasContent canvasContent) {
+    public DrawShapeRequest toDrawShapeRequest(List<String> arguments, final char[][] canvasContent) {
         return new DrawShapeTwoPointsRequest(
                 new Coordinates(parseInt(arguments.get(0)), parseInt(arguments.get(1))),
                 new Coordinates(parseInt(arguments.get(2)), parseInt(arguments.get(3))),
@@ -39,9 +38,9 @@ public class DrawLineCanvasContentService extends AbstractCanvasContentService i
     }
 
     @Override
-    public CanvasContent drawShape(DrawShapeRequest drawShapeRequest) {
+    public char[][] drawShape(DrawShapeRequest drawShapeRequest) {
         DrawShapeTwoPointsRequest drawLineRequest = (DrawShapeTwoPointsRequest) drawShapeRequest;
-        char[][] canvasContent = drawLineRequest.getCanvasContent().getContent();
+        char[][] canvasContent = drawLineRequest.getCanvasContent();
 
         if (coordinatesAreHorizontallyAligned(drawLineRequest.getFirstPoint(), drawLineRequest.getLastPoint())) {
             canvasContent = drawHorizontalLine(drawLineRequest.getFirstPoint(), drawLineRequest.getLastPoint(), canvasContent);
@@ -49,7 +48,7 @@ public class DrawLineCanvasContentService extends AbstractCanvasContentService i
             canvasContent = drawVerticalLine(drawLineRequest.getFirstPoint(), drawLineRequest.getLastPoint(), canvasContent);
         }
 
-        return new CanvasContent(canvasContent);
+        return canvasContent;
     }
 
     private static void checkIfCoordinatesAreAligned(Coordinates firstPoint, Coordinates lastPoint) {

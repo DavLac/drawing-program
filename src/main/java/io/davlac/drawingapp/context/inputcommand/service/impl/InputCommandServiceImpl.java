@@ -5,11 +5,13 @@ import io.davlac.drawingapp.context.inputcommand.model.InputCommand;
 import io.davlac.drawingapp.context.inputcommand.service.InputCommandService;
 import org.apache.commons.lang3.ArrayUtils;
 import org.apache.commons.lang3.StringUtils;
+import org.springframework.stereotype.Component;
 
 import java.util.Arrays;
 import java.util.List;
 import java.util.Scanner;
 
+@Component
 public class InputCommandServiceImpl implements InputCommandService {
 
     private static final String ARGUMENT_SEPARATOR = " ";
@@ -37,13 +39,13 @@ public class InputCommandServiceImpl implements InputCommandService {
 
     private static void checkRawCommand(String rawCommand) {
         if (StringUtils.isBlank(rawCommand)) {
-            throw new IllegalArgumentException("ERROR : Command is empty.");
+            throw new IllegalArgumentException("ERROR : Command is empty");
         }
     }
 
     private static void checkActionCommandLength(String rawCommandAction) {
         if (rawCommandAction.length() > 1) {
-            throw new IllegalArgumentException(String.format("ERROR : Action should be 1 character '%s'.", rawCommandAction));
+            throw new IllegalArgumentException(String.format("ERROR : Action should be 1 character '%s'", rawCommandAction));
         }
     }
 

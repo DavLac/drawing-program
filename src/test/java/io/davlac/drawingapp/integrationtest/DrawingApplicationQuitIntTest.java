@@ -1,7 +1,7 @@
 package io.davlac.drawingapp.integrationtest;
 
 import io.davlac.drawingapp.DrawingApplication;
-import io.davlac.drawingapp.integrationtest.config.Constants;
+import io.davlac.drawingapp.utils.Constants;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -14,8 +14,8 @@ import java.io.PrintStream;
 import java.util.List;
 
 import static com.github.stefanbirkner.systemlambda.SystemLambda.tapSystemOut;
-import static io.davlac.drawingapp.config.SystemInputUtils.setUserInput;
-import static io.davlac.drawingapp.config.SystemOutputUtils.formatExpectedResult;
+import static io.davlac.drawingapp.utils.SystemInputUtils.setUserInput;
+import static io.davlac.drawingapp.utils.SystemOutputUtils.formatExpectedResult;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 @ExtendWith(MockitoExtension.class)
@@ -44,7 +44,7 @@ class DrawingApplicationQuitIntTest {
         String expectedResult = "### Welcome on Drawing app ###\n" +
                 "\n" +
                 "enter command: \n" +
-                "ERROR : Command is empty.\n" +
+                "ERROR : Command is empty\n" +
                 "\n" +
                 "enter command: \n" +
                 "\n" +
@@ -61,7 +61,7 @@ class DrawingApplicationQuitIntTest {
         String expectedResult = "### Welcome on Drawing app ###\n" +
                 "\n" +
                 "enter command: \n" +
-                "ERROR : Command is empty.\n" +
+                "ERROR : Command is empty\n" +
                 "\n" +
                 "enter command: \n" +
                 "\n" +
@@ -78,7 +78,7 @@ class DrawingApplicationQuitIntTest {
         String expectedResult = "### Welcome on Drawing app ###\n" +
                 "\n" +
                 "enter command: \n" +
-                "ERROR : Action not found with command = 'b'.\n" +
+                "ERROR : Action not found with command = 'b'\n" +
                 "\n" +
                 "enter command: \n" +
                 "\n" +
