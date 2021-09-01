@@ -5,21 +5,29 @@ import io.davlac.drawingapp.context.canvascontent.model.request.DrawBucketFillRe
 import io.davlac.drawingapp.context.canvascontent.model.request.DrawShapeRequest;
 import io.davlac.drawingapp.context.canvascontent.service.CanvasContentService;
 import io.davlac.drawingapp.context.canvascontent.service.FloodFillService;
-import io.davlac.drawingapp.context.canvascontent.service.impl.floodfill.BreadthFirstSearchFloodFillService;
+import io.davlac.drawingapp.context.canvascontent.utils.ValidatorService;
+import org.springframework.stereotype.Service;
 
 import java.util.List;
 
-import static io.davlac.drawingapp.context.canvascontent.utils.ValidatorUtils.checkArgumentLength;
-import static io.davlac.drawingapp.context.canvascontent.utils.ValidatorUtils.validateObjectConstraints;
+import static io.davlac.drawingapp.context.canvascontent.utils.ValidatorService.checkArgumentLength;
 import static io.davlac.drawingapp.context.inputcommand.model.ActionCommand.DRAW_BUCKET_FILL;
 import static java.lang.Integer.parseInt;
 
+@Service
 public class DrawBucketFillCanvasContentService extends AbstractCanvasContentService implements CanvasContentService {
 
     private static final String BLANK_KEY_WORD_ARGUMENT = "blank";
     private static final char BLANK_CHAR = ' ';
 
-    private final FloodFillService floodFillService = new BreadthFirstSearchFloodFillService();
+    private final FloodFillService floodFillService;
+    private final ValidatorService validatorService;
+
+    public DrawBucketFillCanvasContentService(FloodFillService floodFillService,
+                                              ValidatorService validatorService) {
+        this.floodFillService = floodFillService;
+        this.validatorService = validatorService;
+    }
 
     @Override
     public void validateArguments(List<String> arguments) {
@@ -42,7 +50,7 @@ public class DrawBucketFillCanvasContentService extends AbstractCanvasContentSer
     @Override
     public void validateDrawShapeRequest(DrawShapeRequest drawShapeRequest) {
         DrawBucketFillRequest drawBucketFillRequest = (DrawBucketFillRequest) drawShapeRequest;
-        validateObjectConstraints(drawBucketFillRequest);
+        validatorService.validateObjectConstraints(drawBucketFillRequest);
         checkIfCoordinatesAreInsideCanvas(drawBucketFillRequest.getFirstPoint(), drawBucketFillRequest.getCanvasContent(), DRAW_BUCKET_FILL);
     }
 

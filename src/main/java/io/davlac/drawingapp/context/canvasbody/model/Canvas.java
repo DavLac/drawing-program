@@ -22,7 +22,7 @@ public class Canvas {
     }
 
     public int getWidth() {
-        if (content == null) {
+        if (content == null || content.length == 0) {
             return 0;
         }
 
@@ -35,6 +35,10 @@ public class Canvas {
         }
 
         return content.length;
+    }
+
+    public boolean contentIsEmpty() {
+        return this.getHeight() == 0;
     }
 
     public char[][] getContent() {

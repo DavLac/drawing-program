@@ -1,11 +1,8 @@
 package io.davlac.drawingapp.context.consoleshceduler.utils;
 
-public class ConsoleLogUtils {
+public interface ConsoleLogUtils {
 
-    private ConsoleLogUtils() {
-    }
-
-    public static void printBreakLine() {
+    static void printBreakLine() {
         System.out.println();
     }
 }

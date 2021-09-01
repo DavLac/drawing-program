@@ -4,15 +4,23 @@ import io.davlac.drawingapp.context.canvascontent.model.Coordinates;
 import io.davlac.drawingapp.context.canvascontent.model.request.DrawShapeRequest;
 import io.davlac.drawingapp.context.canvascontent.model.request.DrawShapeTwoPointsRequest;
 import io.davlac.drawingapp.context.canvascontent.service.CanvasContentService;
+import io.davlac.drawingapp.context.canvascontent.utils.ValidatorService;
+import org.springframework.stereotype.Service;
 
 import java.util.List;
 
-import static io.davlac.drawingapp.context.canvascontent.utils.ValidatorUtils.checkArgumentLength;
-import static io.davlac.drawingapp.context.canvascontent.utils.ValidatorUtils.validateObjectConstraints;
+import static io.davlac.drawingapp.context.canvascontent.utils.ValidatorService.checkArgumentLength;
 import static io.davlac.drawingapp.context.inputcommand.model.ActionCommand.DRAW_RECTANGLE;
 import static java.lang.Integer.parseInt;
 
+@Service
 public class DrawRectangleCanvasContentService extends AbstractCanvasContentService implements CanvasContentService {
+
+    private final ValidatorService validatorService;
+
+    public DrawRectangleCanvasContentService(ValidatorService validatorService) {
+        this.validatorService = validatorService;
+    }
 
     @Override
     public void validateArguments(List<String> arguments) {
@@ -31,7 +39,7 @@ public class DrawRectangleCanvasContentService extends AbstractCanvasContentServ
     @Override
     public void validateDrawShapeRequest(DrawShapeRequest drawShapeRequest) {
         DrawShapeTwoPointsRequest drawRectangleRequest = (DrawShapeTwoPointsRequest) drawShapeRequest;
-        validateObjectConstraints(drawRectangleRequest);
+        validatorService.validateObjectConstraints(drawRectangleRequest);
         checkIfCoordinatesAreInsideCanvas(drawRectangleRequest.getFirstPoint(), drawRectangleRequest.getCanvasContent(), DRAW_RECTANGLE);
         checkIfCoordinatesAreInsideCanvas(drawRectangleRequest.getLastPoint(), drawRectangleRequest.getCanvasContent(), DRAW_RECTANGLE);
         checkTopLeftAndBottomRightCoordinates(drawRectangleRequest.getFirstPoint(), drawRectangleRequest.getLastPoint());

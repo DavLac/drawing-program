@@ -4,23 +4,19 @@ import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.junit.jupiter.MockitoExtension;
 
-import static io.davlac.drawingapp.context.inputcommand.model.ActionCommand.CREATE_CANVAS;
-import static io.davlac.drawingapp.context.inputcommand.model.ActionCommand.QUIT;
+import java.util.Arrays;
+
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 @ExtendWith(MockitoExtension.class)
 class ActionCommandTest {
 
     @Test
-    void getActionByCommand_withCreateCharAction_shouldReturnCreateAction() {
-        ActionCommand actionCommand = ActionCommand.getActionByCommand('C');
-        assertEquals(CREATE_CANVAS, actionCommand);
-    }
-
-    @Test
-    void getActionByCommand_withQuitCharAction_shouldReturnQuitAction() {
-        ActionCommand actionCommand = ActionCommand.getActionByCommand('Q');
-        assertEquals(QUIT, actionCommand);
+    void getActionByCommand_withStreamOnAllValues_shouldReturnAssociatedAction() {
+        Arrays.stream(ActionCommand.values()).forEach(action -> {
+            ActionCommand actionCommandFound = ActionCommand.getActionByCommand(action.getCommand());
+            assertEquals(action, actionCommandFound);
+        });
     }
 
     @Test

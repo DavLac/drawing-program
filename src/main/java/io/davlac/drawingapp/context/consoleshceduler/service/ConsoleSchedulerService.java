@@ -4,9 +4,9 @@ import io.davlac.drawingapp.context.canvasbody.model.Canvas;
 import io.davlac.drawingapp.context.inputcommand.model.ActionCommand;
 import io.davlac.drawingapp.context.inputcommand.model.InputCommand;
 import io.davlac.drawingapp.context.inputcommand.service.CommandTypeService;
-import io.davlac.drawingapp.context.inputcommand.service.InputCommandService;
+import io.davlac.drawingapp.context.inputcommand.service.InputCommandUtils;
 import io.davlac.drawingapp.context.output.model.RawOutput;
-import io.davlac.drawingapp.context.output.service.OutputService;
+import io.davlac.drawingapp.context.output.service.OutputUtils;
 import org.springframework.stereotype.Service;
 
 import java.util.Scanner;
@@ -16,31 +16,27 @@ import static io.davlac.drawingapp.context.consoleshceduler.utils.ConsoleLogUtil
 @Service
 public class ConsoleSchedulerService {
 
-    private final OutputService outputService;
     private final CommandTypeService commandTypeService;
-    private final InputCommandService inputCommandService;
 
-    public ConsoleSchedulerService(OutputService outputService,
-                                   CommandTypeService commandTypeService,
-                                   InputCommandService inputCommandService) {
-        this.outputService = outputService;
+    public ConsoleSchedulerService(CommandTypeService commandTypeService) {
         this.commandTypeService = commandTypeService;
-        this.inputCommandService = inputCommandService;
     }
 
     public void run() {
+        System.out.println("### Welcome on Drawing app ###");
+
         Scanner userInput = new Scanner(System.in);
         ActionCommand currentActionCommand = null;
         Canvas canvas = Canvas.empty();
         do {
             try {
                 printAskInputCommand();
-                String[] rawInputCommand = inputCommandService.toRawInputCommand(userInput);
-                InputCommand inputCommand = inputCommandService.toInputCommand(rawInputCommand);
+                String[] rawInputCommand = InputCommandUtils.toRawInputCommand(userInput);
+                InputCommand inputCommand = InputCommandUtils.toInputCommand(rawInputCommand);
 
                 if (inputCommand.getAction() != ActionCommand.QUIT) {
                     canvas = commandTypeService.processInputCommand(inputCommand, canvas);
-                    RawOutput rawOutput = outputService.toRawOutput(canvas);
+                    RawOutput rawOutput = OutputUtils.toRawOutput(canvas);
                     rawOutput.print();
                 }
 
@@ -53,6 +49,7 @@ public class ConsoleSchedulerService {
         } while (currentActionCommand != ActionCommand.QUIT);
 
         printBreakLine();
+        System.out.println("### End of Drawing app ###");
     }
 
     private static void printAskInputCommand() {

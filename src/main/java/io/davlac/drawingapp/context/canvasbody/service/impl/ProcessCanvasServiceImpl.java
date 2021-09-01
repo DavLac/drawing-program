@@ -13,14 +13,15 @@ import static io.davlac.drawingapp.context.inputcommand.model.ActionCommand.CREA
 @Service
 public class ProcessCanvasServiceImpl implements ProcessCanvasService {
 
-    private final CanvasService canvasGenericArgumentsService = new CreateCanvasService();
+    private final CanvasService canvasService;
 
-    public ProcessCanvasServiceImpl() {
+    public ProcessCanvasServiceImpl(CanvasService canvasService) {
+        this.canvasService = canvasService;
     }
 
     @Override
     public void checkActionIsValid(ActionCommand actionCommand) {
-        // replace this method by a factory if there are other actions on the Canvas (resize canvas...) like CanvasContentFactory
+        // replace this method by a factory if there are other actions on the Canvas (resize canvas...) like the Canvas content factory
         if (actionCommand != CREATE_CANVAS) {
             throw new IllegalArgumentException(String.format("ERROR : Action command '%s' is not implemented", actionCommand));
         }
@@ -28,9 +29,9 @@ public class ProcessCanvasServiceImpl implements ProcessCanvasService {
 
     @Override
     public Canvas generateCanvas(InputCommand inputCommand) {
-        canvasGenericArgumentsService.validateArguments(inputCommand.getArguments());
-        CreateCanvasRequest createCanvasRequest = canvasGenericArgumentsService.toCreateCanvasRequest(inputCommand.getArguments());
-        canvasGenericArgumentsService.validateCreateCanvasRequest(createCanvasRequest);
-        return canvasGenericArgumentsService.createCanvas(createCanvasRequest);
+        canvasService.validateArguments(inputCommand.getArguments());
+        CreateCanvasRequest createCanvasRequest = canvasService.toCreateCanvasRequest(inputCommand.getArguments());
+        canvasService.validateCreateCanvasRequest(createCanvasRequest);
+        return canvasService.createCanvas(createCanvasRequest);
     }
 }

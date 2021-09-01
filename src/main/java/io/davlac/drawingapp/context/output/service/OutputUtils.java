@@ -1,19 +1,20 @@
-package io.davlac.drawingapp.context.output.service.impl;
+package io.davlac.drawingapp.context.output.service;
 
 import io.davlac.drawingapp.context.canvasbody.model.Canvas;
 import io.davlac.drawingapp.context.output.model.RawOutput;
-import io.davlac.drawingapp.context.output.service.OutputService;
-import org.springframework.stereotype.Component;
 
 import java.util.stream.IntStream;
 
 import static io.davlac.drawingapp.context.canvascontent.model.CharCanvas.LEFT_RIGHT_BORDER_CHAR;
 import static io.davlac.drawingapp.context.canvascontent.model.CharCanvas.TOP_BOTTOM_BORDER_CHAR;
 
-@Component
-public class OutputServiceImpl implements OutputService {
+public interface OutputUtils {
 
-    public RawOutput toRawOutput(Canvas canvas) {
+    static RawOutput toRawOutput(Canvas canvas) {
+        if (canvas == null || canvas.contentIsEmpty()) {
+            return new RawOutput(new String[]{});
+        }
+
         String[] rawOutput = new String[canvas.getHeight() + 2];
         StringBuilder strBuilder = new StringBuilder();
 

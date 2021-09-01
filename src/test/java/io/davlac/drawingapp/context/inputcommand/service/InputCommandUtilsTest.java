@@ -2,7 +2,6 @@ package io.davlac.drawingapp.context.inputcommand.service;
 
 import io.davlac.drawingapp.context.inputcommand.model.ActionCommand;
 import io.davlac.drawingapp.context.inputcommand.model.InputCommand;
-import io.davlac.drawingapp.context.inputcommand.service.impl.InputCommandServiceImpl;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.junit.jupiter.MockitoExtension;
@@ -14,20 +13,18 @@ import static io.davlac.drawingapp.utils.SystemInputUtils.setUserInput;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 @ExtendWith(MockitoExtension.class)
-class InputCommandServiceImplTest {
+class InputCommandUtilsTest {
 
     private static final String ARG1 = "arg";
-    public static final String BLANKS = "   ";
+    private static final String BLANKS = "   ";
     private static final String ARG1_WITH_SPACES_AROUND = BLANKS + ARG1 + BLANKS;
     private static final String ARG2 = "arg2";
     private static final String ARG2_WITH_SPACES_AROUND = BLANKS + ARG2 + BLANKS;
     private static final String BLANK_ARG = " ";
 
-    private final InputCommandServiceImpl inputCommandService = new InputCommandServiceImpl();
-
     @Test
     void toRawInputCommand_withOneArg_shouldReturnTheArg() {
-        String[] result = inputCommandService.toRawInputCommand(setUserInput(ARG1));
+        String[] result = InputCommandUtils.toRawInputCommand(setUserInput(ARG1));
 
         assertEquals(1, result.length);
         assertEquals(ARG1, result[0]);
@@ -35,7 +32,7 @@ class InputCommandServiceImplTest {
 
     @Test
     void toRawInputCommand_with2Args_shouldReturn2Args() {
-        String[] result = inputCommandService.toRawInputCommand(setUserInput(buildParams(ARG1, ARG2)));
+        String[] result = InputCommandUtils.toRawInputCommand(setUserInput(buildParams(ARG1, ARG2)));
 
         assertEquals(2, result.length);
         assertEquals(ARG1, result[0]);
@@ -45,7 +42,7 @@ class InputCommandServiceImplTest {
     @Test
     void toRawInputCommand_withEmptyArg_shouldThrowError() {
         try {
-            inputCommandService.toRawInputCommand(setUserInput(BLANK_ARG));
+            InputCommandUtils.toRawInputCommand(setUserInput(BLANK_ARG));
         } catch (IllegalArgumentException ex) {
             assertEquals("ERROR : Command is empty", ex.getMessage());
         }
@@ -53,7 +50,7 @@ class InputCommandServiceImplTest {
 
     @Test
     void toRawInputCommand_withSpaceAroundArgs_shouldReturnArgsTrimed() {
-        String[] result = inputCommandService.toRawInputCommand(setUserInput(
+        String[] result = InputCommandUtils.toRawInputCommand(setUserInput(
                 buildParams(ARG1_WITH_SPACES_AROUND, ARG2_WITH_SPACES_AROUND)));
 
         assertEquals(2, result.length);
@@ -63,7 +60,7 @@ class InputCommandServiceImplTest {
 
     @Test
     void toRawInputCommand_withSpaceBetweenArgs_shouldReturnArgsWithoutEmptyArg() {
-        String[] result = inputCommandService.toRawInputCommand(setUserInput(ARG1 + BLANKS + ARG2));
+        String[] result = InputCommandUtils.toRawInputCommand(setUserInput(ARG1 + BLANKS + ARG2));
 
         assertEquals(2, result.length);
         assertEquals(ARG1, result[0]);
@@ -73,7 +70,7 @@ class InputCommandServiceImplTest {
     @Test
     void toInputCommand_withGoodArgs_shouldReturnInputCommandWithArgs() {
         String[] rawInputCommand = {QUIT_ACTION, ARG1, ARG2};
-        InputCommand inputCommand = inputCommandService.toInputCommand(rawInputCommand);
+        InputCommand inputCommand = InputCommandUtils.toInputCommand(rawInputCommand);
 
         assertEquals(ActionCommand.QUIT, inputCommand.getAction());
         assertEquals(2, inputCommand.getArguments().size());
@@ -84,7 +81,7 @@ class InputCommandServiceImplTest {
     @Test
     void toInputCommand_withActionAndNoArgs_shouldReturnInputCommandWithNoArgs() {
         String[] rawInputCommand = {DRAW_LINE_ACTION};
-        InputCommand inputCommand = inputCommandService.toInputCommand(rawInputCommand);
+        InputCommand inputCommand = InputCommandUtils.toInputCommand(rawInputCommand);
 
         assertEquals(ActionCommand.DRAW_LINE, inputCommand.getAction());
         assertEquals(0, inputCommand.getArguments().size());
@@ -94,7 +91,7 @@ class InputCommandServiceImplTest {
     void toInputCommand_withActionTooLong_shouldReturnAnError() {
         try {
             String[] rawInputCommand = {ARG1};
-            inputCommandService.toInputCommand(rawInputCommand);
+            InputCommandUtils.toInputCommand(rawInputCommand);
         } catch (IllegalArgumentException ex) {
             assertEquals("ERROR : Action should be 1 character '" + ARG1 + "'", ex.getMessage());
         }
@@ -104,7 +101,7 @@ class InputCommandServiceImplTest {
     void toInputCommand_withUnknownAction_shouldReturnAnError() {
         try {
             String[] rawInputCommand = {"D"};
-            inputCommandService.toInputCommand(rawInputCommand);
+            InputCommandUtils.toInputCommand(rawInputCommand);
         } catch (IllegalArgumentException ex) {
             assertEquals("ERROR : Action not found with command = 'D'", ex.getMessage());
         }

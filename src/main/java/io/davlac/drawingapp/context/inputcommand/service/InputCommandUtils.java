@@ -1,31 +1,28 @@
-package io.davlac.drawingapp.context.inputcommand.service.impl;
+package io.davlac.drawingapp.context.inputcommand.service;
 
 import io.davlac.drawingapp.context.inputcommand.model.ActionCommand;
 import io.davlac.drawingapp.context.inputcommand.model.InputCommand;
-import io.davlac.drawingapp.context.inputcommand.service.InputCommandService;
 import org.apache.commons.lang3.ArrayUtils;
 import org.apache.commons.lang3.StringUtils;
-import org.springframework.stereotype.Component;
 
+import javax.validation.constraints.NotNull;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Scanner;
 
-@Component
-public class InputCommandServiceImpl implements InputCommandService {
+public interface InputCommandUtils {
 
-    private static final String ARGUMENT_SEPARATOR = " ";
+    String ARGUMENT_SEPARATOR = " ";
 
-    @Override
-    public String[] toRawInputCommand(Scanner userInput) {
-        String rawInputCommand = userInput.nextLine();
-        checkRawCommand(rawInputCommand);
-        rawInputCommand = rawInputCommand.trim();
-        return splitWithoutEmptyElements(rawInputCommand, ARGUMENT_SEPARATOR);
+    static String[] toRawInputCommand(Scanner userInput) {
+        String rawInput = userInput.nextLine();
+        checkRawCommand(rawInput);
+        rawInput = rawInput.trim();
+        String[] rawInputSplit = rawInput.split(ARGUMENT_SEPARATOR, -1);
+        return removeEmptyElements(rawInputSplit);
     }
 
-    @Override
-    public InputCommand toInputCommand(String[] rawInputCommand) {
+    static InputCommand toInputCommand(@NotNull String[] rawInputCommand) {
         String[] rawCommandArguments = ArrayUtils.remove(rawInputCommand, 0);
         String rawCommandAction = rawInputCommand[0];
 
@@ -49,9 +46,8 @@ public class InputCommandServiceImpl implements InputCommandService {
         }
     }
 
-    public static String[] splitWithoutEmptyElements(String str, String separator) {
-        String[] strSplit = str.split(separator, -1);
-        return Arrays.stream(strSplit)
+    private static String[] removeEmptyElements(String[] str) {
+        return Arrays.stream(str)
                 .filter(element -> !StringUtils.isEmpty(element))
                 .toArray(String[]::new);
     }

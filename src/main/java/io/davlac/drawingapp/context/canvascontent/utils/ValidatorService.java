@@ -1,24 +1,22 @@
 package io.davlac.drawingapp.context.canvascontent.utils;
 
 import io.davlac.drawingapp.context.inputcommand.model.ActionCommand;
+import org.springframework.stereotype.Component;
 
 import javax.validation.ConstraintViolation;
-import javax.validation.Validation;
 import javax.validation.Validator;
 import javax.validation.ValidatorFactory;
 import java.util.List;
 import java.util.Set;
 import java.util.stream.Collectors;
 
-public class ValidatorUtils {
+@Component
+public class ValidatorService {
 
-    private static final ValidatorFactory factory = Validation.buildDefaultValidatorFactory();
+    private final ValidatorFactory factory;
 
-    private ValidatorUtils() {
-    }
-
-    public static void init() {
-        // Method empty to load this class at runtime (to show the Hibernate validator loading message at the beginning)
+    public ValidatorService(ValidatorFactory factory) {
+        this.factory = factory;
     }
 
     public static void checkArgumentLength(List<String> arguments, ActionCommand actionCommand) {
@@ -28,7 +26,7 @@ public class ValidatorUtils {
         }
     }
 
-    public static void validateObjectConstraints(Object object) {
+    public void validateObjectConstraints(Object object) {
         Validator validator = factory.getValidator();
         Set<ConstraintViolation<Object>> constraintViolations = validator.validate(object);
 

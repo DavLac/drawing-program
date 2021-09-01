@@ -10,11 +10,17 @@ import org.springframework.stereotype.Service;
 @Service
 public class ProcessCanvasContentServiceImpl implements ProcessCanvasContentService {
 
+    private final CanvasContentFactory canvasContentFactory;
+
+    public ProcessCanvasContentServiceImpl(CanvasContentFactory canvasContentFactory) {
+        this.canvasContentFactory = canvasContentFactory;
+    }
+
     @Override
     public char[][] processDrawContent(InputCommand inputCommand, final char[][] canvasContent) {
         checkCanvasContentNotEmpty(canvasContent);
 
-        CanvasContentService canvasContentService = CanvasContentFactory.getAction(inputCommand.getAction());
+        CanvasContentService canvasContentService = canvasContentFactory.getAction(inputCommand.getAction());
 
         canvasContentService.validateArguments(inputCommand.getArguments());
         DrawShapeRequest drawShapeRequest = canvasContentService.toDrawShapeRequest(inputCommand.getArguments(), canvasContent);

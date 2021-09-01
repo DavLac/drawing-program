@@ -2,6 +2,7 @@ package io.davlac.drawingapp.context.canvascontent.service.impl.floodfill;
 
 import io.davlac.drawingapp.context.canvascontent.model.Coordinates;
 import io.davlac.drawingapp.context.canvascontent.service.FloodFillService;
+import org.springframework.stereotype.Component;
 
 import java.util.LinkedList;
 import java.util.Queue;
@@ -9,6 +10,7 @@ import java.util.Queue;
 /**
  * This flood fill class follow the Breadth-First Search flood fill algorithm
  */
+@Component
 public class BreadthFirstSearchFloodFillService implements FloodFillService {
 
     @Override
