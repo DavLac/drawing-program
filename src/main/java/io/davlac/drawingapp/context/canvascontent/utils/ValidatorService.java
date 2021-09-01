@@ -20,13 +20,13 @@ public class ValidatorService {
     }
 
     public static void checkArgumentLength(List<String> arguments, ActionCommand actionCommand) {
-        if (arguments.size() < actionCommand.getMinArgumentSize()) {
+        if (arguments == null || arguments.size() < actionCommand.getMinArgumentSize()) {
             throw new IllegalArgumentException(String.format("ERROR: Action '%s' - not enough arguments (%d)",
                     actionCommand, actionCommand.getMinArgumentSize()));
         }
     }
 
-    public void validateObjectConstraints(Object object) {
+    public boolean validateObjectConstraints(Object object) {
         Validator validator = factory.getValidator();
         Set<ConstraintViolation<Object>> constraintViolations = validator.validate(object);
 
@@ -36,5 +36,7 @@ public class ValidatorService {
                             .map(ConstraintViolation::getMessage)
                             .collect(Collectors.toList())));
         }
+
+        return true;
     }
 }

@@ -2,7 +2,7 @@ package io.davlac.drawingapp.context.canvasbody.model;
 
 import java.util.stream.IntStream;
 
-import static io.davlac.drawingapp.context.canvasbody.utils.ArrayUtils.fillArrayWithSpaces;
+import static io.davlac.drawingapp.context.canvasbody.utils.ArrayUtils.createArrayWithBlanks;
 
 public class Canvas {
     // canvas content is final to avoid to change the size of it
@@ -14,7 +14,7 @@ public class Canvas {
     }
 
     public static Canvas create(int width, int height) {
-        return new Canvas(fillArrayWithSpaces(width, height));
+        return new Canvas(createArrayWithBlanks(width, height));
     }
 
     public static Canvas empty() {
@@ -46,6 +46,11 @@ public class Canvas {
     }
 
     public void setContent(char[][] content) {
+        if (content == null || content.length == 0) {
+            // Canvas.empty() to create empty canvas
+            throw new IllegalArgumentException("ERROR : Cannot modify canvas with empty content");
+        }
+
         if (this.getWidth() != content[0].length ||
                 this.getHeight() != content.length) {
             throw new IllegalArgumentException("ERROR : Cannot modify canvas content because the size are not the same");

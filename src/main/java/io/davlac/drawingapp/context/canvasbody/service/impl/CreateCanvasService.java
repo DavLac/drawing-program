@@ -5,16 +5,13 @@ import io.davlac.drawingapp.context.canvasbody.model.CreateCanvasRequest;
 import io.davlac.drawingapp.context.canvasbody.service.CanvasService;
 import io.davlac.drawingapp.context.canvascontent.utils.ValidatorService;
 import org.springframework.stereotype.Service;
-import org.springframework.validation.annotation.Validated;
 
-import javax.validation.Valid;
 import java.util.List;
 
 import static io.davlac.drawingapp.context.canvascontent.utils.ValidatorService.checkArgumentLength;
 import static io.davlac.drawingapp.context.inputcommand.model.ActionCommand.CREATE_CANVAS;
 
 @Service
-@Validated
 public class CreateCanvasService implements CanvasService {
 
     private final ValidatorService validatorService;
@@ -24,8 +21,9 @@ public class CreateCanvasService implements CanvasService {
     }
 
     @Override
-    public void validateArguments(List<String> arguments) {
+    public boolean validArguments(List<String> arguments) {
         checkArgumentLength(arguments, CREATE_CANVAS);
+        return true;
     }
 
     @Override
@@ -34,8 +32,8 @@ public class CreateCanvasService implements CanvasService {
     }
 
     @Override
-    public void validateCreateCanvasRequest(@Valid CreateCanvasRequest createCanvasRequest) {
-        validatorService.validateObjectConstraints(createCanvasRequest);
+    public boolean validateCreateCanvasRequest(CreateCanvasRequest createCanvasRequest) {
+        return validatorService.validateObjectConstraints(createCanvasRequest);
     }
 
     @Override

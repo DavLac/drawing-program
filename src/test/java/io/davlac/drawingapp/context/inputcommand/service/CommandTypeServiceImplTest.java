@@ -11,7 +11,7 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 
-import static io.davlac.drawingapp.context.canvasbody.utils.ArrayUtils.fillArrayWithSpaces;
+import static io.davlac.drawingapp.context.canvasbody.utils.ArrayUtils.createArrayWithBlanks;
 import static io.davlac.drawingapp.context.inputcommand.model.ActionCommand.CREATE_CANVAS;
 import static io.davlac.drawingapp.context.inputcommand.model.ActionCommand.DRAW_BUCKET_FILL;
 import static io.davlac.drawingapp.context.inputcommand.model.ActionCommand.QUIT;
@@ -38,7 +38,7 @@ class CommandTypeServiceImplTest {
 
     @Test
     void processInputCommand_withCanvasTypeAction_shouldReturnCanvas() {
-        doNothing().when(processCanvasService).checkActionIsValid(CREATE_CANVAS);
+        when(processCanvasService.checkActionIsValid(CREATE_CANVAS)).thenReturn(true);
         when(processCanvasService.generateCanvas(any(InputCommand.class))).thenReturn(Canvas.create(WIDTH, HEIGHT));
 
         InputCommand inputCommand = InputCommand.builder().actionCommand(CREATE_CANVAS).create();
@@ -53,7 +53,7 @@ class CommandTypeServiceImplTest {
 
     @Test
     void processInputCommand_withCanvasContentAction_shouldReturnCanvasWithSameSizeContent() {
-        char[][] canvasContent = fillArrayWithSpaces(WIDTH, HEIGHT);
+        char[][] canvasContent = createArrayWithBlanks(WIDTH, HEIGHT);
         when(processCanvasContentService.processDrawContent(any(InputCommand.class), any()))
                 .thenReturn(canvasContent);
 
@@ -68,7 +68,7 @@ class CommandTypeServiceImplTest {
 
     @Test
     void processInputCommand_withCanvasContentActionReturnContentDifferentSize_shouldThrowAnError() {
-        char[][] canvasContent = fillArrayWithSpaces(WIDTH, HEIGHT + 1);
+        char[][] canvasContent = createArrayWithBlanks(WIDTH, HEIGHT + 1);
         when(processCanvasContentService.processDrawContent(any(InputCommand.class), any()))
                 .thenReturn(canvasContent);
 

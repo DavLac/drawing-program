@@ -6,7 +6,7 @@ import io.davlac.drawingapp.context.inputcommand.model.InputCommand;
 
 public interface ProcessCanvasService {
 
-    void checkActionIsValid(ActionCommand actionCommand);
+    boolean checkActionIsValid(ActionCommand actionCommand);
 
     Canvas generateCanvas(InputCommand inputCommand);
 
