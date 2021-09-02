@@ -64,4 +64,14 @@ class RawOutputTest {
 
         assertEquals(EMPTY_STRING, consoleResult);
     }
+
+    @Test
+    void print_withNull_shouldPrintNoting() throws Exception {
+        RawOutput rawOutput = new RawOutput(null);
+        rawOutput.print();
+
+        String consoleResult = tapSystemOut(rawOutput::print);
+
+        assertEquals(EMPTY_STRING, consoleResult);
+    }
 }

@@ -7,6 +7,9 @@ import org.springframework.stereotype.Component;
 import java.util.LinkedList;
 import java.util.Queue;
 
+import static io.davlac.drawingapp.context.canvasbody.utils.ArrayUtils.coordinatesAreOutsideTheArray;
+import static io.davlac.drawingapp.context.canvasbody.utils.ArrayUtils.deepCopyArray;
+
 /**
  * This flood fill class follow the Breadth-First Search flood fill algorithm
  */
@@ -15,6 +18,12 @@ public class BreadthFirstSearchFloodFillService implements FloodFillService {
 
     @Override
     public char[][] floodFill(char[][] grid, Coordinates startingCoordinates, char newColor) {
+        if (grid == null || grid.length == 0) {
+            return grid;
+        }
+
+        checkCoordinates(startingCoordinates, grid);
+
         char prevColor = grid[startingCoordinates.getY() - 1][startingCoordinates.getX() - 1];
 
         if (prevColor == newColor) {
@@ -25,7 +34,7 @@ public class BreadthFirstSearchFloodFillService implements FloodFillService {
     }
 
     private static char[][] floodFillBFS(char[][] grid, int y, int x, char newColor, char prevColor) {
-        char[][] gridModified = grid.clone();
+        char[][] gridModified = deepCopyArray(grid);
         int gridHeight = gridModified.length;
         int gridWidth = gridModified[0].length;
         int[] directions = new int[]{0, 1, 0, -1, 0};
@@ -68,5 +77,19 @@ public class BreadthFirstSearchFloodFillService implements FloodFillService {
 
     private static boolean nextColumnIsOutsideTheGrid(int nextColumn, int gridWidth) {
         return nextColumn < 0 || nextColumn >= gridWidth;
+    }
+
+    private static void checkCoordinates(Coordinates coord, char[][] grid) {
+        if (coord == null) {
+            throw new InternalError("ERROR : Coordinates is null");
+        }
+
+        if (coord.getX() == 0 || coord.getY() == 0) {
+            throw new InternalError("ERROR : One of coordinates is 0");
+        }
+
+        if (coordinatesAreOutsideTheArray(grid, coord.getX(), coord.getY())) {
+            throw new InternalError(String.format("ERROR: coordinates are outside the grid : '%s'.", coord));
+        }
     }
 }

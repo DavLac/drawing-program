@@ -4,9 +4,9 @@ import io.davlac.drawingapp.context.canvasbody.model.Canvas;
 import io.davlac.drawingapp.context.inputcommand.model.ActionCommand;
 import io.davlac.drawingapp.context.inputcommand.model.InputCommand;
 import io.davlac.drawingapp.context.inputcommand.service.CommandTypeService;
-import io.davlac.drawingapp.context.inputcommand.service.InputCommandUtils;
+import io.davlac.drawingapp.context.inputcommand.utils.InputCommandUtils;
 import io.davlac.drawingapp.context.output.model.RawOutput;
-import io.davlac.drawingapp.context.output.service.OutputUtils;
+import io.davlac.drawingapp.context.output.service.CanvasOutputUtils;
 import org.springframework.stereotype.Service;
 
 import java.util.Scanner;
@@ -36,7 +36,7 @@ public class ConsoleSchedulerService {
 
                 if (inputCommand.getAction() != ActionCommand.QUIT) {
                     canvas = commandTypeService.processInputCommand(inputCommand, canvas);
-                    RawOutput rawOutput = OutputUtils.toRawOutput(canvas);
+                    RawOutput rawOutput = CanvasOutputUtils.toRawOutput(canvas);
                     rawOutput.print();
                 }
 

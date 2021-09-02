@@ -14,6 +14,10 @@ public class RawOutput {
     }
 
     public void print() {
+        if(this.content == null) {
+            return;
+        }
+
         Arrays.stream(this.content).forEach(System.out::println);
     }
 }

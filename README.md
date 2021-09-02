@@ -27,6 +27,32 @@ Command line :
 java -jar drawingprogram-1.0.0.jar
 ```
 
+## Special cases
+- Canvas maximum size = **5000**.
+
+With regular consoles UI (Windows cmd or Git bash) '200' size is the
+maximum to display a canvas correctly. IntelliJ can handle '5000' size.
+
+- Command lines are 'trim-ed' and **blank** arguments are ignored.
+
+`__C___20__4___` command will be parsed to `C_20_4`
+*(underscore '_' = space in this example)*
+
+- With the previous rule, it is impossible to use color = `' '` (space) to
+  bucket-fill a canvas (it is ignored). To fill a canvas with blank char,
+  use the keyword `blank`.
+
+`B 1 2 blank` will bucket filled with **blank** color at (1,2)
+
+
 ## Jacoco test coverage
-- Unit tests : in progress
+Command line :
+```
+mvn clean test
+```
+Jacoco report location :  `target/jacoco-ut`
+
+### Test coverage :
+- Overall : 99%
+- Unit tests : 98%
 - Integration tests : 97%

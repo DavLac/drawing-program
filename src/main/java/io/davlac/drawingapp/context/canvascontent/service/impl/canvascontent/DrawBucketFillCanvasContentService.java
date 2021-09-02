@@ -5,12 +5,12 @@ import io.davlac.drawingapp.context.canvascontent.model.request.DrawBucketFillRe
 import io.davlac.drawingapp.context.canvascontent.model.request.DrawShapeRequest;
 import io.davlac.drawingapp.context.canvascontent.service.CanvasContentService;
 import io.davlac.drawingapp.context.canvascontent.service.FloodFillService;
-import io.davlac.drawingapp.context.canvascontent.utils.ValidatorService;
+import io.davlac.drawingapp.context.canvascontent.service.ValidatorService;
+import io.davlac.drawingapp.context.inputcommand.utils.InputCheckUtils;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
 
-import static io.davlac.drawingapp.context.canvascontent.utils.ValidatorService.checkArgumentLength;
 import static io.davlac.drawingapp.context.inputcommand.model.ActionCommand.DRAW_BUCKET_FILL;
 import static java.lang.Integer.parseInt;
 
@@ -30,8 +30,8 @@ public class DrawBucketFillCanvasContentService extends AbstractCanvasContentSer
     }
 
     @Override
-    public void validateArguments(List<String> arguments) {
-        checkArgumentLength(arguments, DRAW_BUCKET_FILL);
+    public boolean validateArguments(List<String> arguments) {
+        return InputCheckUtils.checkArgumentLength(arguments, DRAW_BUCKET_FILL);
     }
 
     @Override
@@ -48,17 +48,17 @@ public class DrawBucketFillCanvasContentService extends AbstractCanvasContentSer
     }
 
     @Override
-    public void validateDrawShapeRequest(DrawShapeRequest drawShapeRequest) {
+    public boolean validateDrawShapeRequest(DrawShapeRequest drawShapeRequest) {
         DrawBucketFillRequest drawBucketFillRequest = (DrawBucketFillRequest) drawShapeRequest;
         validatorService.validateObjectConstraints(drawBucketFillRequest);
         checkIfCoordinatesAreInsideCanvas(drawBucketFillRequest.getFirstPoint(), drawBucketFillRequest.getCanvasContent(), DRAW_BUCKET_FILL);
+        return true;
     }
 
     @Override
     public char[][] drawShape(DrawShapeRequest drawShapeRequest) {
         DrawBucketFillRequest drawBucketFillRequest = (DrawBucketFillRequest) drawShapeRequest;
         char[][] canvasContent = drawBucketFillRequest.getCanvasContent();
-        canvasContent = floodFillService.floodFill(canvasContent, drawBucketFillRequest.getFirstPoint(), drawBucketFillRequest.getColor());
-        return canvasContent;
+        return floodFillService.floodFill(canvasContent, drawBucketFillRequest.getFirstPoint(), drawBucketFillRequest.getColor());
     }
 }

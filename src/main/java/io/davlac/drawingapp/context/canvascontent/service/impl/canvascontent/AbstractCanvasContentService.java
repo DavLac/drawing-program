@@ -5,6 +5,8 @@ import io.davlac.drawingapp.context.inputcommand.model.ActionCommand;
 
 import java.util.stream.IntStream;
 
+import static io.davlac.drawingapp.context.canvasbody.utils.ArrayUtils.coordinatesAreOutsideTheArray;
+import static io.davlac.drawingapp.context.canvasbody.utils.ArrayUtils.deepCopyArray;
 import static io.davlac.drawingapp.context.canvascontent.model.CharCanvas.LINE_CHAR;
 
 public abstract class AbstractCanvasContentService {
@@ -15,7 +17,7 @@ public abstract class AbstractCanvasContentService {
     protected static char[][] drawHorizontalLine(Coordinates firstPoint, Coordinates lastPoint, char[][] canvasContent) {
         int higherPoint;
         int smallerPoint;
-        char[][] canvasContentModified = canvasContent.clone();
+        char[][] canvasContentModified = deepCopyArray(canvasContent);
 
         if (firstPoint.getX() >= lastPoint.getX()) {
             higherPoint = firstPoint.getX();
@@ -34,7 +36,7 @@ public abstract class AbstractCanvasContentService {
     protected static char[][] drawVerticalLine(Coordinates firstPoint, Coordinates lastPoint, char[][] canvasContent) {
         int higherPoint;
         int smallerPoint;
-        char[][] canvasContentModified = canvasContent.clone();
+        char[][] canvasContentModified = deepCopyArray(canvasContent);
 
         if (firstPoint.getY() >= lastPoint.getY()) {
             higherPoint = firstPoint.getY();
@@ -53,8 +55,7 @@ public abstract class AbstractCanvasContentService {
     protected static void checkIfCoordinatesAreInsideCanvas(Coordinates coordinates,
                                                             char[][] canvasContent,
                                                             ActionCommand actionCommand) {
-        if (coordinates.getX() > canvasContent[0].length ||
-                coordinates.getY() > canvasContent.length) {
+        if (coordinatesAreOutsideTheArray(canvasContent, coordinates.getX(), coordinates.getY())) {
             throw new IllegalArgumentException(
                     String.format("ERROR: Action '%s' - coordinates are outside the canvas : '%s'.", actionCommand, coordinates));
         }

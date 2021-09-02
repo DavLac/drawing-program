@@ -46,13 +46,9 @@ public class Canvas {
     }
 
     public void setContent(char[][] content) {
-        if (content == null || content.length == 0) {
-            // Canvas.empty() to create empty canvas
-            throw new IllegalArgumentException("ERROR : Cannot modify canvas with empty content");
-        }
-
-        if (this.getWidth() != content[0].length ||
-                this.getHeight() != content.length) {
+        if (content == null ||
+                this.getHeight() != content.length ||
+                this.getWidth() != content[0].length) {
             throw new IllegalArgumentException("ERROR : Cannot modify canvas content because the size are not the same");
         }
 

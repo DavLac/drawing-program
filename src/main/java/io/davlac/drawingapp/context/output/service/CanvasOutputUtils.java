@@ -8,7 +8,7 @@ import java.util.stream.IntStream;
 import static io.davlac.drawingapp.context.canvascontent.model.CharCanvas.LEFT_RIGHT_BORDER_CHAR;
 import static io.davlac.drawingapp.context.canvascontent.model.CharCanvas.TOP_BOTTOM_BORDER_CHAR;
 
-public interface OutputUtils {
+public interface CanvasOutputUtils {
 
     static RawOutput toRawOutput(Canvas canvas) {
         if (canvas == null || canvas.contentIsEmpty()) {

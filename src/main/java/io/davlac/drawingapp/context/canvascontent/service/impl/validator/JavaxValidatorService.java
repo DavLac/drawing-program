@@ -1,31 +1,24 @@
-package io.davlac.drawingapp.context.canvascontent.utils;
+package io.davlac.drawingapp.context.canvascontent.service.impl.validator;
 
-import io.davlac.drawingapp.context.inputcommand.model.ActionCommand;
+import io.davlac.drawingapp.context.canvascontent.service.ValidatorService;
 import org.springframework.stereotype.Component;
 
 import javax.validation.ConstraintViolation;
 import javax.validation.Validator;
 import javax.validation.ValidatorFactory;
-import java.util.List;
 import java.util.Set;
 import java.util.stream.Collectors;
 
 @Component
-public class ValidatorService {
+public class JavaxValidatorService implements ValidatorService {
 
     private final ValidatorFactory factory;
 
-    public ValidatorService(ValidatorFactory factory) {
+    public JavaxValidatorService(ValidatorFactory factory) {
         this.factory = factory;
     }
 
-    public static void checkArgumentLength(List<String> arguments, ActionCommand actionCommand) {
-        if (arguments == null || arguments.size() < actionCommand.getMinArgumentSize()) {
-            throw new IllegalArgumentException(String.format("ERROR: Action '%s' - not enough arguments (%d)",
-                    actionCommand, actionCommand.getMinArgumentSize()));
-        }
-    }
-
+    @Override
     public boolean validateObjectConstraints(Object object) {
         Validator validator = factory.getValidator();
         Set<ConstraintViolation<Object>> constraintViolations = validator.validate(object);

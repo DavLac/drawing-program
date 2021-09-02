@@ -18,6 +18,7 @@ public class ProcessCanvasContentServiceImpl implements ProcessCanvasContentServ
 
     @Override
     public char[][] processDrawContent(InputCommand inputCommand, final char[][] canvasContent) {
+        checkInputCommandNotNull(inputCommand);
         checkCanvasContentNotEmpty(canvasContent);
 
         CanvasContentService canvasContentService = canvasContentFactory.getAction(inputCommand.getAction());
@@ -26,6 +27,12 @@ public class ProcessCanvasContentServiceImpl implements ProcessCanvasContentServ
         DrawShapeRequest drawShapeRequest = canvasContentService.toDrawShapeRequest(inputCommand.getArguments(), canvasContent);
         canvasContentService.validateDrawShapeRequest(drawShapeRequest);
         return canvasContentService.drawShape(drawShapeRequest);
+    }
+
+    private static void checkInputCommandNotNull(InputCommand inputCommand) {
+        if (inputCommand == null) {
+            throw new IllegalArgumentException("ERROR : InputCommand is null.");
+        }
     }
 
     private static void checkCanvasContentNotEmpty(final char[][] canvasContent) {

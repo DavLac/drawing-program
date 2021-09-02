@@ -98,7 +98,17 @@ class CanvasTest {
         try{
             canvas.setContent(new char[0][0]);
         } catch (IllegalArgumentException ex) {
-            assertEquals("ERROR : Cannot modify canvas with empty content", ex.getMessage());
+            assertEquals("ERROR : Cannot modify canvas content because the size are not the same", ex.getMessage());
+        }
+    }
+
+    @Test
+    void setContent_withNullContent_shouldThrowError() {
+        Canvas canvas = Canvas.create(WIDTH, HEIGHT);
+        try{
+            canvas.setContent(null);
+        } catch (IllegalArgumentException ex) {
+            assertEquals("ERROR : Cannot modify canvas content because the size are not the same", ex.getMessage());
         }
     }
 

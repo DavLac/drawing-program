@@ -4,12 +4,12 @@ import io.davlac.drawingapp.context.canvascontent.model.Coordinates;
 import io.davlac.drawingapp.context.canvascontent.model.request.DrawShapeRequest;
 import io.davlac.drawingapp.context.canvascontent.model.request.DrawShapeTwoPointsRequest;
 import io.davlac.drawingapp.context.canvascontent.service.CanvasContentService;
-import io.davlac.drawingapp.context.canvascontent.utils.ValidatorService;
+import io.davlac.drawingapp.context.canvascontent.service.ValidatorService;
+import io.davlac.drawingapp.context.inputcommand.utils.InputCheckUtils;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
 
-import static io.davlac.drawingapp.context.canvascontent.utils.ValidatorService.checkArgumentLength;
 import static io.davlac.drawingapp.context.inputcommand.model.ActionCommand.DRAW_LINE;
 import static java.lang.Integer.parseInt;
 
@@ -24,8 +24,8 @@ public class DrawLineCanvasContentService extends AbstractCanvasContentService i
 
 
     @Override
-    public void validateArguments(List<String> arguments) {
-        checkArgumentLength(arguments, DRAW_LINE);
+    public boolean validateArguments(List<String> arguments) {
+        return InputCheckUtils.checkArgumentLength(arguments, DRAW_LINE);
     }
 
     @Override
@@ -38,12 +38,13 @@ public class DrawLineCanvasContentService extends AbstractCanvasContentService i
     }
 
     @Override
-    public void validateDrawShapeRequest(DrawShapeRequest drawShapeRequest) {
+    public boolean validateDrawShapeRequest(DrawShapeRequest drawShapeRequest) {
         DrawShapeTwoPointsRequest drawLineRequest = (DrawShapeTwoPointsRequest) drawShapeRequest;
         validatorService.validateObjectConstraints(drawLineRequest);
         checkIfCoordinatesAreInsideCanvas(drawLineRequest.getFirstPoint(), drawLineRequest.getCanvasContent(), DRAW_LINE);
         checkIfCoordinatesAreInsideCanvas(drawLineRequest.getLastPoint(), drawLineRequest.getCanvasContent(), DRAW_LINE);
         checkIfCoordinatesAreAligned(drawLineRequest.getFirstPoint(), drawLineRequest.getLastPoint());
+        return true;
     }
 
     @Override
