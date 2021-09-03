@@ -17,9 +17,6 @@ import static java.lang.Integer.parseInt;
 @Service
 public class DrawBucketFillCanvasContentService extends AbstractCanvasContentService implements CanvasContentService {
 
-    private static final String BLANK_KEY_WORD_ARGUMENT = "blank";
-    private static final char BLANK_CHAR = ' ';
-
     private final FloodFillService floodFillService;
     private final ValidatorService validatorService;
 
@@ -36,13 +33,9 @@ public class DrawBucketFillCanvasContentService extends AbstractCanvasContentSer
 
     @Override
     public DrawShapeRequest toDrawShapeRequest(List<String> arguments, final char[][] canvasContent) {
-        char color = (BLANK_KEY_WORD_ARGUMENT.equals(arguments.get(2)))
-                ? BLANK_CHAR
-                : arguments.get(2).charAt(0);
-
         return new DrawBucketFillRequest(
                 new Coordinates(parseInt(arguments.get(0)), parseInt(arguments.get(1))),
-                color,
+                arguments.get(2).charAt(0),
                 canvasContent
         );
     }

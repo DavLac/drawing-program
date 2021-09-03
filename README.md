@@ -40,9 +40,9 @@ Example : `C 5000 5000`
 
 3. With the previous rule, it is impossible to use color = `' '` (space) to
   bucket-fill a canvas (it is ignored). To fill a canvas with blank char,
-  use the keyword `blank`.
+  use the keyword `${blank}`.
 
-  Example : `B 1 2 blank` will bucket filled with **blank** color at (1,2)
+  Example : `B 1 2 ${blank}` will bucket filled with **blank** color at (1,2)
 
 
 ## Jacoco test coverage

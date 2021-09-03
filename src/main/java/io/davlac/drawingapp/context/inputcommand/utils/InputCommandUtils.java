@@ -9,6 +9,9 @@ import javax.validation.constraints.NotNull;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Scanner;
+import java.util.stream.IntStream;
+
+import static io.davlac.drawingapp.context.inputcommand.model.CommandKey.COMMAND_KEY;
 
 public interface InputCommandUtils {
 
@@ -19,7 +22,8 @@ public interface InputCommandUtils {
         checkRawCommand(rawInput);
         rawInput = rawInput.trim();
         String[] rawInputSplit = rawInput.split(ARGUMENT_SEPARATOR, -1);
-        return removeEmptyElements(rawInputSplit);
+        rawInputSplit = removeEmptyElements(rawInputSplit);
+        return replaceCommandKeys(rawInputSplit);
     }
 
     static InputCommand toInputCommand(@NotNull String[] rawInputCommand) {
@@ -58,5 +62,15 @@ public interface InputCommandUtils {
         return Arrays.stream(str)
                 .filter(element -> !StringUtils.isEmpty(element))
                 .toArray(String[]::new);
+    }
+
+    private static String[] replaceCommandKeys(String[] str) {
+        IntStream.range(0, str.length).forEach(i -> {
+            if (COMMAND_KEY.containsKey(str[i])) {
+                str[i] = COMMAND_KEY.get(str[i]);
+            }
+        });
+
+        return str;
     }
 }

@@ -48,7 +48,6 @@ class DrawBucketFillCanvasContentServiceTest {
     private static final String ARG1 = "1";
     private static final String ARG2 = "2";
     private static final String ARG3 = "3";
-    private static final String BLANK_KEY_WORD = "blank";
     private static final String ARG_ALPHA = "a";
     private static final char BLANK = ' ';
     private static final char COLOR = 'o';
@@ -87,14 +86,6 @@ class DrawBucketFillCanvasContentServiceTest {
         assertEquals(Integer.parseInt(ARG2), drawShapeRequest.getFirstPoint().getY());
         assertEquals(ARG3.charAt(0), drawShapeRequest.getColor());
         assertArrayEquals(CANVAS_CONTENT, drawShapeRequest.getCanvasContent());
-    }
-
-    @Test
-    void toDrawShapeRequest_withBlankKeyWorkArg_shouldReturnRequestWithColorSpace() {
-        List<String> args = List.of(ARG1, ARG2, BLANK_KEY_WORD);
-        DrawBucketFillRequest drawShapeRequest = (DrawBucketFillRequest)
-                drawBucketFillCanvasContentService.toDrawShapeRequest(args, CANVAS_CONTENT);
-        assertEquals(BLANK, drawShapeRequest.getColor());
     }
 
     @Test

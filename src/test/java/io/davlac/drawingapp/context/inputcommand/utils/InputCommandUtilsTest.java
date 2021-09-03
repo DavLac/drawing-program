@@ -2,7 +2,6 @@ package io.davlac.drawingapp.context.inputcommand.utils;
 
 import io.davlac.drawingapp.context.inputcommand.model.ActionCommand;
 import io.davlac.drawingapp.context.inputcommand.model.InputCommand;
-import io.davlac.drawingapp.context.inputcommand.utils.InputCommandUtils;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.junit.jupiter.MockitoExtension;
@@ -12,6 +11,8 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.stream.IntStream;
 
+import static io.davlac.drawingapp.context.inputcommand.model.CommandKey.COMMAND_KEY;
+import static io.davlac.drawingapp.context.inputcommand.model.CommandKey.Key.BLANK;
 import static io.davlac.drawingapp.utils.Constants.DRAW_LINE_ACTION;
 import static io.davlac.drawingapp.utils.Constants.QUIT_ACTION;
 import static io.davlac.drawingapp.utils.SystemInputUtils.buildParams;
@@ -64,6 +65,16 @@ class InputCommandUtilsTest {
         assertEquals(2, result.length);
         assertEquals(ARG1, result[0]);
         assertEquals(ARG2, result[1]);
+    }
+
+    @Test
+    void toRawInputCommand_withBlankKeyWord_shouldReturnConvertBlankKeyWordToBlankChar() {
+        String[] result = InputCommandUtils.toRawInputCommand(
+                setUserInput(buildParams(ARG1, BLANK.getValue())));
+
+        assertEquals(2, result.length);
+        assertEquals(ARG1, result[0]);
+        assertEquals(" ", result[1]);
     }
 
     @Test

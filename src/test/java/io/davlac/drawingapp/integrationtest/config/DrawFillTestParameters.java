@@ -5,6 +5,7 @@ import org.junit.jupiter.params.provider.Arguments;
 import java.util.List;
 import java.util.stream.Stream;
 
+import static io.davlac.drawingapp.context.inputcommand.model.CommandKey.Key.BLANK;
 import static io.davlac.drawingapp.utils.Constants.CREATE_ACTION;
 import static io.davlac.drawingapp.utils.Constants.DRAW_RECTANGLE_ACTION;
 import static io.davlac.drawingapp.utils.Constants.FILL_ACTION;
@@ -193,7 +194,7 @@ public class DrawFillTestParameters {
                         List.of(
                                 params(CREATE_ACTION, "2", "2"),
                                 params(DRAW_RECTANGLE_ACTION, "1", "1", "2", "2"),
-                                params(FILL_ACTION, "1", "1", "blank"),
+                                params(FILL_ACTION, "1", "1", BLANK.getValue()),
                                 QUIT_ACTION),
                         "### Welcome on Drawing app ###\n" +
                                 "\n" +
