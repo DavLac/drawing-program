@@ -6,7 +6,7 @@ import io.davlac.drawingapp.context.canvascontent.model.request.DrawShapeRequest
 import io.davlac.drawingapp.context.canvascontent.service.CanvasContentService;
 import io.davlac.drawingapp.context.canvascontent.service.FloodFillService;
 import io.davlac.drawingapp.context.canvascontent.service.ValidatorService;
-import io.davlac.drawingapp.context.inputcommand.utils.InputCheckUtils;
+import io.davlac.drawingapp.context.inputcommand.utils.InputCommandUtils;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -31,7 +31,7 @@ public class DrawBucketFillCanvasContentService extends AbstractCanvasContentSer
 
     @Override
     public boolean validateArguments(List<String> arguments) {
-        return InputCheckUtils.checkArgumentLength(arguments, DRAW_BUCKET_FILL);
+        return InputCommandUtils.checkArgumentLength(arguments, DRAW_BUCKET_FILL);
     }
 
     @Override

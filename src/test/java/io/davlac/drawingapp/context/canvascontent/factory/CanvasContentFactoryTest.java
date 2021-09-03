@@ -1,6 +1,5 @@
 package io.davlac.drawingapp.context.canvascontent.factory;
 
-import io.davlac.drawingapp.context.canvascontent.factory.CanvasContentFactory;
 import io.davlac.drawingapp.context.canvascontent.service.CanvasContentService;
 import io.davlac.drawingapp.context.canvascontent.service.impl.canvascontent.DrawBucketFillCanvasContentService;
 import io.davlac.drawingapp.context.canvascontent.service.impl.canvascontent.DrawLineCanvasContentService;
@@ -17,6 +16,7 @@ import java.util.Arrays;
 import static io.davlac.drawingapp.context.inputcommand.model.ActionCommand.DRAW_BUCKET_FILL;
 import static io.davlac.drawingapp.context.inputcommand.model.ActionCommand.DRAW_LINE;
 import static io.davlac.drawingapp.context.inputcommand.model.ActionCommand.DRAW_RECTANGLE;
+import static io.davlac.drawingapp.context.inputcommand.model.CommandType.CANVAS_CONTENT;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
@@ -55,7 +55,8 @@ class CanvasContentFactoryTest {
                     try {
                         canvasContentFactory.getAction(action);
                     } catch (IllegalArgumentException ex) {
-                        assertEquals(String.format("ERROR : Action command '%s' is not implemented", action), ex.getMessage());
+                        assertEquals(String.format("ERROR : Action command '%s' is not implemented for type = '%s'",
+                                action, CANVAS_CONTENT), ex.getMessage());
                     }
                 });
     }

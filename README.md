@@ -17,7 +17,7 @@ This is a console app. You need to run it in a console terminal.
 
 ## Readme links
 
-- [Instructions](README-TASK.md)
+- [Instructions and command lines to use the app](README-TASK.md)
 - [How to run the app](README-RUN.md)
 
 ## Special cases

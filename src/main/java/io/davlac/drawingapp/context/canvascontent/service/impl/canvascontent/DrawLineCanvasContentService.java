@@ -5,7 +5,7 @@ import io.davlac.drawingapp.context.canvascontent.model.request.DrawShapeRequest
 import io.davlac.drawingapp.context.canvascontent.model.request.DrawShapeTwoPointsRequest;
 import io.davlac.drawingapp.context.canvascontent.service.CanvasContentService;
 import io.davlac.drawingapp.context.canvascontent.service.ValidatorService;
-import io.davlac.drawingapp.context.inputcommand.utils.InputCheckUtils;
+import io.davlac.drawingapp.context.inputcommand.utils.InputCommandUtils;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -25,7 +25,7 @@ public class DrawLineCanvasContentService extends AbstractCanvasContentService i
 
     @Override
     public boolean validateArguments(List<String> arguments) {
-        return InputCheckUtils.checkArgumentLength(arguments, DRAW_LINE);
+        return InputCommandUtils.checkArgumentLength(arguments, DRAW_LINE);
     }
 
     @Override

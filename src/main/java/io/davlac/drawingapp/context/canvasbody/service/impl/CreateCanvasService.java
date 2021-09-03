@@ -4,7 +4,7 @@ import io.davlac.drawingapp.context.canvasbody.model.Canvas;
 import io.davlac.drawingapp.context.canvasbody.model.CreateCanvasRequest;
 import io.davlac.drawingapp.context.canvasbody.service.CanvasService;
 import io.davlac.drawingapp.context.canvascontent.service.ValidatorService;
-import io.davlac.drawingapp.context.inputcommand.utils.InputCheckUtils;
+import io.davlac.drawingapp.context.inputcommand.utils.InputCommandUtils;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -22,7 +22,7 @@ public class CreateCanvasService implements CanvasService {
 
     @Override
     public boolean validArguments(List<String> arguments) {
-        return InputCheckUtils.checkArgumentLength(arguments, CREATE_CANVAS);
+        return InputCommandUtils.checkArgumentLength(arguments, CREATE_CANVAS);
     }
 
     @Override

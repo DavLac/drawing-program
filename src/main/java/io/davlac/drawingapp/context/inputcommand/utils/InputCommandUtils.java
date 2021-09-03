@@ -34,6 +34,14 @@ public interface InputCommandUtils {
                 .create();
     }
 
+    static boolean checkArgumentLength(List<String> arguments, ActionCommand actionCommand) {
+        if (arguments == null || arguments.size() < actionCommand.getMinArgumentSize()) {
+            throw new IllegalArgumentException(String.format("ERROR: Action '%s' - not enough arguments (%d)",
+                    actionCommand, actionCommand.getMinArgumentSize()));
+        }
+        return true;
+    }
+
     private static void checkRawCommand(String rawCommand) {
         if (StringUtils.isBlank(rawCommand)) {
             throw new IllegalArgumentException("ERROR : Command is empty");

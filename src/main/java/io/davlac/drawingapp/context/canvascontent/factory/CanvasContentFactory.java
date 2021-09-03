@@ -9,6 +9,8 @@ import io.davlac.drawingapp.context.canvascontent.service.impl.canvascontent.Dra
 import io.davlac.drawingapp.context.inputcommand.model.ActionCommand;
 import org.springframework.stereotype.Component;
 
+import static io.davlac.drawingapp.context.inputcommand.model.CommandType.CANVAS_CONTENT;
+
 @Component
 public class CanvasContentFactory {
 
@@ -30,7 +32,9 @@ public class CanvasContentFactory {
             case DRAW_BUCKET_FILL:
                 return new DrawBucketFillCanvasContentService(floodFillService, validatorService);
             default:
-                throw new IllegalArgumentException(String.format("ERROR : Action command '%s' is not implemented", actionCommand));
+                throw new IllegalArgumentException(
+                        String.format("ERROR : Action command '%s' is not implemented for type = '%s'",
+                                actionCommand, CANVAS_CONTENT));
         }
     }
 }

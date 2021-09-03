@@ -7,11 +7,18 @@ import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.junit.jupiter.MockitoExtension;
 
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
+import java.util.stream.IntStream;
+
 import static io.davlac.drawingapp.utils.Constants.DRAW_LINE_ACTION;
 import static io.davlac.drawingapp.utils.Constants.QUIT_ACTION;
 import static io.davlac.drawingapp.utils.SystemInputUtils.buildParams;
 import static io.davlac.drawingapp.utils.SystemInputUtils.setUserInput;
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 @ExtendWith(MockitoExtension.class)
 class InputCommandUtilsTest {
@@ -106,5 +113,37 @@ class InputCommandUtilsTest {
         } catch (IllegalArgumentException ex) {
             assertEquals("ERROR : Action not found with command = 'D'", ex.getMessage());
         }
+    }
+
+    @Test
+    void checkArgumentLength_withEachActionsGoodArgs_shouldReturnTrue() {
+        Arrays.stream(ActionCommand.values()).forEach(action -> {
+            List<String> args = new ArrayList<>();
+            IntStream.range(0, action.getMinArgumentSize()).forEach(i -> args.add(String.valueOf(i)));
+            assertTrue(InputCommandUtils.checkArgumentLength(args, action));
+        });
+    }
+
+    @Test
+    void checkArgumentLength_withEachActionsTooMuchArgs_shouldReturnTrue() {
+        Arrays.stream(ActionCommand.values()).forEach(action -> {
+            List<String> args = new ArrayList<>();
+            IntStream.range(0, action.getMinArgumentSize() + 1).forEach(i -> args.add(String.valueOf(i)));
+            assertTrue(InputCommandUtils.checkArgumentLength(args, action));
+        });
+    }
+
+    @Test
+    void checkArgumentLength_withEachActionsWithArgsNotEnoughArgs_shouldThrowError() {
+        Arrays.stream(ActionCommand.values())
+                .filter(action -> action.getMinArgumentSize() != 0)
+                .forEach(action -> {
+                    try {
+                        assertFalse(InputCommandUtils.checkArgumentLength(List.of(), action));
+                    } catch (IllegalArgumentException ex) {
+                        assertEquals(String.format("ERROR: Action '%s' - not enough arguments (%d)",
+                                action, action.getMinArgumentSize()), ex.getMessage());
+                    }
+                });
     }
 }
