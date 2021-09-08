@@ -11,7 +11,8 @@ public enum ActionCommand {
     DRAW_LINE('L', CANVAS_CONTENT, 4),
     DRAW_RECTANGLE('R', CANVAS_CONTENT, 4),
     DRAW_BUCKET_FILL('B', CANVAS_CONTENT, 3),
-    QUIT('Q', APPLICATION_OPERATION, 0);
+    QUIT('Q', APPLICATION_OPERATION, 0),
+    UNDO('U', CANVAS_CONTENT, 0);
 
     private final Character command;
     private final CommandType commandType;
